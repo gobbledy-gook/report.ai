@@ -9,7 +9,7 @@ to_select.forEach((t) => {
 });
 // console.log("test");
 
-var count = theText.split(" ").length;
+var word_count = theText.split(" ").length;
 
 function wordFreq(string) {
   var words = string.replace(/[.]/g, "").split(/\s/);
@@ -25,4 +25,5 @@ function wordFreq(string) {
 }
 
 var freqMap = wordFreq(theText);
-chrome.runtime.sendMessage(count);
+// chrome.runtime.sendMessage(count);
+chrome.storage.local.set({ key: word_count });
