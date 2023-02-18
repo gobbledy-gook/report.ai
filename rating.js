@@ -5,16 +5,11 @@ const editBtn = document.querySelector(".edit");
 btn.onclick = () => {
   console.log("Button Clicked!");
   var b1 = document.getElementsByClassName("radiobutton");
-  for (let i = 4; i <= 0; i--) {
-    console.log(i);
+  console.log("radio fetched!");
+  for (let i = 0; i < 5; i++) {
     if(b1[i].checked){
-      console.log(5-i);
+      console.log(i-1);
     }
   }  
-
-  // editBtn.onclick = () => {
-  //   widget.style.display = "block";
-  //   post.style.display = "none";
-  // }
   return false;
 }
