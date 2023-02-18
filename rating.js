@@ -10,6 +10,10 @@ btn.onclick = () => {
     if(b1[i].checked){
       console.log(i-1);
     }
-  }  
+  }
+  btn.style.backgroundColor = "white";
+  btn.style.color = "#111";
+
   return false;
 }
+
