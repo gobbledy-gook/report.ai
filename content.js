@@ -24,23 +24,5 @@ function wordFreq(string) {
   return freqMap;
 }
 
-chrome.tabs.getSelected(null, function (tab) {
-  chrome.tabs.sendRequest(tab.id, { method: "getText" }, function (response) {
-    if (response.method == "getText") {
-      alltext = response.data;
-    }
-  });
-});
-
 var freqMap = wordFreq(theText);
-
-// chrome.extension.onRequest.addListener(function (
-//   request,
-//   sender,
-//   sendResponse
-// ) {
-//   if (request.method == "getText") {
-//     sendResponse({ data: count, method: "getText" }); //same as innerText
-//   }
-// });
 chrome.runtime.sendMessage(count);
