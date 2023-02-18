@@ -12,7 +12,6 @@ cors = CORS(app)
 
 
 api_key = os.environ.get('API_KEY')
-# api_key = "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"
 openai.api_key = api_key
 print(api_key)
 
