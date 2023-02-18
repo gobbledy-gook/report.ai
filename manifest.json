@@ -1,10 +1,24 @@
 {
-  "manifest_version": 3,
-  "name": "Hello Extensions",
-  "description": "Base Level Extension",
-  "version": "1.0",
-  "action": {
+  "manifest_version": 2,
+  "name": "report.ai",
+  "description": "Word count",
+  "version": "2.0",
+  "browser_action": {
     "default_popup": "hello.html",
     "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "content.js"
+      ],
+      "matches": [
+        "https://*/*"
+      ]
+    }
+  ],
+  "background":{
+    "scripts" : ["popup.js"]
   }
+
 }
