@@ -37,9 +37,17 @@ fetch("http://127.0.0.1:5000/summarize", {
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
   },
   body: JSON.stringify(data),
-}).then((res) => {
-  console.log("Request complete! response:", res);
-});
+})
+  .then((res) => {
+    console.log("Request complete! response:", res);
+    return res.json(); // return the Promise from res.json()
+  })
+  .then((json) => {
+    console.log("Response JSON:", json);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
 
 // console.log(freqMap)
 
@@ -261,7 +269,35 @@ for (var i = 0; i < Math.min(most_common.length, 10); i++) {
   freq_word.push(most_common[i]);
 }
 
+var summary;
+fetch("http://127.0.0.1:5000/summarize", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type,Authorization",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+  },
+  body: JSON.stringify(data),
+})
+  .then((res) => {
+    console.log("Request complete! response:", res);
+    return res.json(); // return the Promise from res.json()
+  })
+  .then((json) => {
+    summary = json;
+    console.log("Response JSON:", json);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+
+page_meta = {
+  freq_word: freq_word,
+  summary: summary,
+};
+
 console.log(freq_word);
 
 // chrome.runtime.sendMessage(count);
-chrome.storage.local.set({ key: freq_word });
+chrome.storage.local.set({ key: page_meta });

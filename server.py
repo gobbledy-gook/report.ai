@@ -1,3 +1,4 @@
+import json
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -15,11 +16,26 @@ openai.api_key = api_key
 print(api_key)
 
 
+def openai_summarizer(text):
+    prompt = f"Please summarize the following text:\n{text}"
+    response = openai.Completion.create(
+        engine="davinci",
+        prompt=prompt,
+        max_tokens=100,  # adjust to control length of summary
+        n=1,
+        stop=None,
+        temperature=0.2,  # adjust to control creativity of summary
+    )
+    summary = response.choices[0].text.strip()
+    return summary
+
+
 @app.route('/summarize', methods=['POST'])
 def summarize():
     req_data = request.get_json()
-    text_data = req_data.get('text')
-    print(req_data)
+    text_data = req_data['text_data']
+    # text_data = req_data.get('text_data')
+    # print(req_data)
     # generated_text = response.choices[0].text
     # return generated_text
 
@@ -30,8 +46,18 @@ def summarize():
                          'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods',
                          'GET,PUT,POST,DELETE,OPTIONS')
+
+    print(openai_summarizer(text_data))
+    response = jsonify({'summary': openai_summarizer(text_data)})
+    print(response)
     return response
 
 
+@ app.route('/save_entry', methods=['POST'])
+def save_entry():
+    req_data = request.get_json()
+
+
+app.route('/save')
 if __name__ == '__main__':
     app.run(debug=True)
