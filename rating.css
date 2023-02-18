@@ -12,6 +12,7 @@ html,body{
   place-items: center;
   text-align: center;
   background: #111;
+ 
 }
 
 .topbar{
@@ -27,7 +28,7 @@ html,body{
 .container{
   position: relative;
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -68,6 +69,11 @@ html,body{
   transition: all 0.2s ease;
   text-align: right;
 }
+
+.star-widget{
+  margin-bottom:10px;
+}
+
 input:not(:checked) ~ label:hover,
 input:not(:checked) ~ label:hover ~ label{
   color: #fd4;
@@ -156,4 +162,32 @@ form .btn button:hover{
   display: flex;
   justify-content: center;
   flex-direction:column;
+}
+
+.wordcloud{
+  padding-top:20px;
+  padding-left:20px;
+  padding-right:20px;
+  margin-bottom:10px;
+  width:100%;
+  display:flex;
+  flex-direction: row;
+  color:white;
+  border-top: 1px solid rgba(128, 128, 128, 0.308);
+}
+
+.tags{
+  border: 1px solid grey;
+  background-color: #999999ab;
+  color:rgb(255, 250, 250);
+  border-radius: 5px;
+  padding: 0px 5px 0px 5px;
+  margin-right: 2px;
+}
+
+.bottom{
+  padding-top:10px;
+  width: 100%;
+  color:rgb(196, 196, 196);
+  border-top: 1px solid rgba(128, 128, 128, 0.308);
 }
