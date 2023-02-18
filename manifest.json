@@ -1,10 +1,23 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "Report.AI",
   "description": "5-Star Rating, Summary, Report n much more..",
-  "version": "1.1",
-  "action": {
-    "default_popup": "hello.html",
-    "default_icon": "icon.png"
+  "version": "3.1",
+  "browser_action": {
+    "default_popup": "hello.html"
+  },
+  "permissions" : ["storage"],
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "content_scripts": [{
+    "matches": ["https://*/*","http://*/*"],
+    "js": ["./content.js"]
+    }],
+  "background":{
+    "scripts" : ["./popup.js"]
   }
 }
