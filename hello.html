@@ -3,6 +3,7 @@
 <head>
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   <meta charset="utf-8">
+  <meta>
   <link rel="stylesheet" href="rating.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
@@ -19,23 +20,23 @@
   <h1>Report.AI</h1>
   <div class="topbar">
     <div style="width: 59%; text-align:right; padding-right:2%">Overall Rating</div>
-    <div style="width: 41%; text-align: left; padding-left:2%;">3.8</div>
+    <div style="width: 41%; text-align: left; padding-left:2%;" id="overallRating"></div>
   </div>
   <div class="container">
     <div class="star-widget">
-      <input class="star" type="radio" name="rate" id="rate-5">
+
+      <input type="radio" class="radiobutton" name="rate" id="rate-5">
       <label for="rate-5" class="fas fa-star"></label>
-      <input class="star" type="radio" name="rate" id="rate-4">
+      <input type="radio" class="radiobutton" name="rate" id="rate-4">
       <label for="rate-4" class="fas fa-star"></label>
-      <input class="star" type="radio" name="rate" id="rate-3">
+      <input type="radio" class="radiobutton" name="rate" id="rate-3">
       <label for="rate-3" class="fas fa-star"></label>
-      <input class="star" type="radio" name="rate" id="rate-2">
+      <input type="radio" class="radiobutton" name="rate" id="rate-2">
       <label for="rate-2" class="fas fa-star"></label>
-      <input class="star" type="radio" name="rate" id="rate-1">
+      <input type="radio" class="radiobutton" name="rate" id="rate-1">
       <label for="rate-1" class="fas fa-star"></label>
       <form action="#">
         <header></header>
-
 
 
         <div class="textarea">
@@ -45,37 +46,19 @@
         <div class="btn">
           <button type="submit">Post</button>
         </div>
-
-
-        <!-- <div class="post">
-            <div class="text">Thanks for rating us!</div>
-            <div class="edit">Edit</div>
-          </div> -->
       </form>
     </div>
     <div class="wordcloud">
-      Word Cloud:
-      <!-- <span class = "tags">People</span>
-          <span class = "tags">People</span>
-          <span class = "tags">People</span>
-          <span class = "tags">People</span> -->
+      <div>Word Cloud:</div>
+      <div class="worldcloudpara" style="padding:5px; display:inline; float:left">
 
+      </div>
     </div>
     <div class="bottom">
       Paper Hat Presents at DotSlash 6.0
     </div>
     <script src="rating.js"></script>
     <script src="popup.js"></script>
-    <script>
-      const tags = ["People", "India", "Happy", "Geek"];
-      for (let i = 0; i < tags.length; i++) {
-        console.log(tags[i]);
-        var s = document.createElement("span");
-        s.innerHTML = tags[i];
-        var parent = document.getElementsByClassName("wordcloud");
-        parent[0].appendChild(s);
-      };
-    </script>
 </body>
 
 </html>
