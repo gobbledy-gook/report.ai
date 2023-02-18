@@ -39,14 +39,14 @@ fetch("http://127.0.0.1:5000/summarize", {
   body: JSON.stringify(data),
 })
   .then((res) => {
-    console.log("Request complete! response:", res);
+    // console.log("Request complete! response:", res);
     return res.json(); // return the Promise from res.json()
   })
   .then((json) => {
-    console.log("Response JSON:", json);
+    // console.log("Response JSON:", json);
   })
   .catch((error) => {
-    console.error("Error:", error);
+    // console.error("Error:", error);
   });
 
 // console.log(freqMap)
@@ -281,23 +281,24 @@ fetch("http://127.0.0.1:5000/summarize", {
   body: JSON.stringify(data),
 })
   .then((res) => {
-    console.log("Request complete! response:", res);
+    // console.log("Request complete! response:", res);
     return res.json(); // return the Promise from res.json()
   })
   .then((json) => {
-    summary = json;
-    console.log("Response JSON:", json);
+    summary = json.summary;
+    console.log(summary);
+
+    page_meta = {
+      freq_word: freq_word,
+      summary: summary,
+    };
+
+    // console.log("Response JSON:", json);
+    // chrome.runtime.sendMessage(count);
+    chrome.storage.local.set({ key: page_meta });
   })
   .catch((error) => {
     console.error("Error:", error);
   });
 
-page_meta = {
-  freq_word: freq_word,
-  summary: summary,
-};
-
-console.log(freq_word);
-
-// chrome.runtime.sendMessage(count);
-chrome.storage.local.set({ key: page_meta });
+// console.log(freq_word);
