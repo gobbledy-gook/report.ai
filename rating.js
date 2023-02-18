@@ -5,9 +5,9 @@ const editBtn = document.querySelector(".edit");
 var rating = 4;
 var url;
 btn.onclick = () => {
-  console.log("Button Clicked!");
+  // console.log("Button Clicked!");
   var b1 = document.getElementsByClassName("radiobutton");
-  console.log("radio fetched!");
+  // console.log("radio fetched!");
   for (let i = 0; i < 5; i++) {
     if (b1[i].checked) {
       console.log(5 - i);
