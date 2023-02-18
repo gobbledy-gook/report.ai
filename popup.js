@@ -5,7 +5,7 @@ function logger(result) {
   //   document.querySelector("#summary").innerHTML = "AI Running..."
   // }
   document.querySelector("#summary").innerHTML = result.key.summary;
-  console.log("Summary: ",result.key.summary);
+  console.log("Summary: ", result.key.summary);
   let colors = ["rgba(255, 54, 54, 0.735)", "rgba(54, 255, 134, 0.735)", "rgba(54, 181, 255, 0.785)", "rgba(255, 201, 54, 0.761)", "rgba(255, 255, 255, 0.535)"]
   for (let i = 0; i < 5; i++) {
     // console.log(result.key[i]);
