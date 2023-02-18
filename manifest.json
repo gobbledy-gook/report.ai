@@ -6,7 +6,7 @@
   "browser_action": {
     "default_popup": "hello.html"
   },
-  "permissions" : ["storage"],
+  "permissions" : ["storage", "http://127.0.0.1:5000/*"],
   "icons": {
     "16": "icon.png",
     "32": "icon.png",
