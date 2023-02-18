@@ -21,7 +21,6 @@ function logger(result) {
 }
 
 chrome.storage.local.get(["key"], logger);
-
 // for (let i = 0; i < result.key.length; i++) {
 //   console.log(result.key[i]);
 //   var s = document.createElement("span");

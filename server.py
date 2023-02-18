@@ -1,10 +1,12 @@
-import json
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-
 import os
-from dotenv import load_dotenv
+import json
 import openai
+from flask_cors import CORS
+from dotenv import load_dotenv
+from flask import Flask, request, jsonify
+from pymongo import MongoClient
+# jLlPFEAAwS9pRuab
+
 
 load_dotenv()
 app = Flask(__name__)
@@ -12,12 +14,20 @@ cors = CORS(app)
 
 
 api_key = os.environ.get('API_KEY')
+mongo_pass = os.environ.get('MONGO')
 openai.api_key = api_key
+
+mongo_uri = "mongodb+srv://ansah:" + mongo_pass + \
+    "@cluster0.eswdqot.mongodb.net/test"
 print(api_key)
+print(mongo_uri)
+
+client = MongoClient(mongo_uri)
+ratings_collection = client['report']['rating']
 
 
 def openai_summarizer(text):
-    prompt = f"Please summarize the following text:\n{text}"
+    prompt = f"summarize the following text in paragraphs:\n{text}"
     response = openai.Completion.create(
         engine="davinci",
         prompt=prompt,
@@ -53,11 +63,54 @@ def summarize():
     return response
 
 
-@ app.route('/save_entry', methods=['POST'])
+@app.route('/save_entry', methods=['POST'])
 def save_entry():
     req_data = request.get_json()
+    print(req_data)
+    url = req_data['url']
+    curr_rating = req_data['rating']
+    res = ratings_collection.find_one({'url': url})
+
+    if res:
+        new_rating = (res['rating'] * res['freq'] +
+                      curr_rating)/(res['freq'] + 1)
+        update = {'$set': {'rating': new_rating, 'freq': res['freq'] + 1}}
+        ratings_collection.update_many({'url': url}, update)
+    else:
+        new_doc = {
+            'url': url,
+            'rating': curr_rating,
+            'freq': 1
+        }
+        ratings_collection.insert_one(new_doc)
+
+    return jsonify({'status': 'success'})
 
 
-app.route('/save')
+@app.route('/get_rating', methods=['POST'])
+def get_rating():
+    req_data = request.get_json()
+    url = req_data['url']
+    res = ratings_collection.find_one({'url': url})
+    if res:
+        response = jsonify({'rating': res['rating']})
+
+    else:
+        response = jsonify({'rating': res['rating']})
+    return response
+
+
+@app.route('/top_ratings')
+def top_ratings():
+    tops = ratings_collection.find().sort("rating", -1)
+    tops_list = []
+    for top in tops:
+        tops_list.append(top)
+
+    response = jsonify({'top': tops_list})
+    return response
+
+
+# app.route('/save')
 if __name__ == '__main__':
     app.run(debug=True)
