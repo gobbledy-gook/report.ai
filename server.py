@@ -25,6 +25,8 @@ print(mongo_uri)
 client = MongoClient(mongo_uri)
 ratings_collection = client['report']['rating']
 
+print(ratings_collection)
+
 
 def openai_summarizer(text):
     prompt = f"summarize the following text in paragraphs:\n{text}"

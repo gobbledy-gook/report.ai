@@ -3,7 +3,7 @@ const post = document.querySelector(".post");
 const widget = document.querySelector(".star-widget");
 const editBtn = document.querySelector(".edit");
 var rating = 4;
-var url;
+var url = 34;
 btn.onclick = () => {
   // console.log("Button Clicked!");
   var b1 = document.getElementsByClassName("radiobutton");
@@ -23,13 +23,14 @@ btn.onclick = () => {
   }
   btn.style.backgroundColor = "white";
   btn.style.color = "#111";
-  saveEntry();
+  saveEntry(rating, url);
 
   return false;
 };
 
-function saveEntry() {
+function saveEntry(rating, url) {
   let data = { rating: rating, url: url };
+  console.log(data);
   fetch("http://127.0.0.1:5000/save_entry", {
     method: "POST",
     headers: {
