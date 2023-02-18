@@ -285,7 +285,12 @@ fetch("http://127.0.0.1:5000/summarize", {
     return res.json(); // return the Promise from res.json()
   })
   .then((json) => {
+    // page_meta = {
+    //   freq_word: freq_word,
+    //   summary: summary,
+    // };
     summary = json.summary;
+    console.log("Hello");
     console.log(summary);
 
     page_meta = {
@@ -301,4 +306,8 @@ fetch("http://127.0.0.1:5000/summarize", {
     console.error("Error:", error);
   });
 
+  // page_meta = {
+  //   freq_word: freq_word,
+  //   summary: summary,
+  // };
 // console.log(freq_word);

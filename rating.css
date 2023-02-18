@@ -11,7 +11,7 @@ html,body{
   height: 100%;
   place-items: center;
   text-align: center;
-  background: #111;
+  background: #202020;
  
 }
 
@@ -22,7 +22,8 @@ html,body{
   width:100%;
   display:flex;
   flex-direction: row;
-  color:white
+  color:white;  
+  /* color: rgba(255, 201, 54, 0.761); */
 }
 
 .container{
@@ -191,6 +192,16 @@ form .btn button:hover{
 .bottom{
   padding-top:10px;
   width: 100%;
-  color:rgb(196, 196, 196);
+  color:rgb(156, 156, 156);
   border-top: 1px solid rgba(128, 128, 128, 0.308);
+}
+
+.Summary{
+  background-color: #333;
+  width:332;
+  padding:5px;
+  display:block;
+  float:left;
+  text-align: left;
+  overflow-x: scroll;
 }
