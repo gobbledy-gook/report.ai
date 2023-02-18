@@ -60,8 +60,9 @@ for(var i=0;i<Math.min(most_common.length,10);i++){
   freq_word.push(most_common[i]);
 }
 
-console.log(freq_word);
+// console.log(freq_word);
 
 
 // chrome.runtime.sendMessage(count);
 chrome.storage.local.set({ key: freq_word });
+alert("hello");
