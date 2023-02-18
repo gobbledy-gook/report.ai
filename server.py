@@ -5,6 +5,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
+from bson.json_util import dumps
 # jLlPFEAAwS9pRuab
 
 
@@ -107,10 +108,10 @@ def top_ratings():
     tops = ratings_collection.find().sort("rating", -1)
     tops_list = []
     for top in tops:
-        tops_list.append(top)
+        tops_list.append(dumps(top))
 
-    response = jsonify({'top': tops_list})
-    return response
+    response = {'top': tops_list}
+    return jsonify(response)
 
 
 # app.route('/save')

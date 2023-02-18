@@ -2,8 +2,7 @@ const btn = document.querySelector("button");
 const post = document.querySelector(".post");
 const widget = document.querySelector(".star-widget");
 const editBtn = document.querySelector(".edit");
-var rating = 4;
-var url = 34;
+var rating = 0;
 btn.onclick = () => {
   // console.log("Button Clicked!");
   var b1 = document.getElementsByClassName("radiobutton");
@@ -17,13 +16,13 @@ btn.onclick = () => {
         var currentTitle = tabs[0].title;
         var currentSiteName = currentUrl.split("/")[2]; // Get the third part of the URL
         console.log(currentUrl);
+        saveEntry(rating, currentUrl);
         url = currentUrl;
       });
     }
   }
   btn.style.backgroundColor = "white";
   btn.style.color = "#111";
-  saveEntry(rating, url);
 
   return false;
 };
