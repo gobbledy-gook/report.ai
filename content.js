@@ -25,5 +25,21 @@ function wordFreq(string) {
 }
 
 var freqMap = wordFreq(theText);
+
+let data = { text_data: theText };
+
+fetch("http://127.0.0.1:5000/summarize", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type,Authorization",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+  },
+  body: JSON.stringify(data),
+}).then((res) => {
+  console.log("Request complete! response:", res);
+});
+
 // chrome.runtime.sendMessage(count);
 chrome.storage.local.set({ key: word_count });
