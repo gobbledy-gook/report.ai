@@ -97,9 +97,8 @@ def get_rating():
     res = ratings_collection.find_one({'url': url})
     if res:
         response = jsonify({'rating': res['rating']})
-
     else:
-        response = jsonify({'rating': res['rating']})
+        response = jsonify({'rating': 0})
     return response
 
 

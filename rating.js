@@ -15,9 +15,9 @@ btn.onclick = () => {
         var currentUrl = tabs[0].url;
         var currentTitle = tabs[0].title;
         var currentSiteName = currentUrl.split("/")[2]; // Get the third part of the URL
-        console.log(currentUrl);
+        console.log("Current URL : " + currentUrl); // removed unnecessary "str" call
         saveEntry(rating, currentUrl);
-        url = currentUrl;
+        getRating(currentUrl);
       });
     }
   }

@@ -21,13 +21,31 @@ function logger(result) {
     var parent = document.getElementsByClassName("worldcloudpara");
     parent[0].appendChild(s);
   }
+
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    var currentUrl = tabs[0].url;
+    console.log("Current URL : " + currentUrl);
+    getRating(currentUrl);
+  });
+}
+
+function getRating(url) {
+  let data = { url: url };
+  fetch("http://127.0.0.1:5000/get_rating", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      console.log("Response JSON:", json.rating);
+      document.getElementById("rating-score").innerHTML = json.rating;
+    })
+    .catch((error) => {});
 }
 
 chrome.storage.local.get(["key"], logger);
-// for (let i = 0; i < result.key.length; i++) {
-//   console.log(result.key[i]);
-//   var s = document.createElement("span");
-//   s.innerHTML = result.key[i];
-//   var parent = document.getElementsByClassName("wordcloud");
-//   parent[0].appendChild(s);
-// };

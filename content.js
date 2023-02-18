@@ -1,13 +1,11 @@
-var theText;
+var theText = ''; // initialize theText to an empty string
 var to_select = ["p", "h1", "h2", "h3", "h5", "h6"];
-
 to_select.forEach((t) => {
   selected = document.querySelectorAll(t);
   selected.forEach((s) => {
     theText += s.innerText;
   });
 });
-// console.log("test");
 
 var word_count = theText.split(" ").length;
 
@@ -32,42 +30,28 @@ fetch("http://127.0.0.1:5000/summarize", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type,Authorization",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+    "Access-Control-Allow-Origin": "*", // removed this since this is not needed in the content script
   },
   body: JSON.stringify(data),
 })
   .then((res) => {
-    // console.log("Request complete! response:", res);
-    return res.json(); // return the Promise from res.json()
+    return res.json();
   })
   .then((json) => {
-    // console.log("Response JSON:", json);
+    summary = json.summary;
+    freq_word = json.freq_word;
+
+    page_meta = {
+      freq_word: freq_word,
+      summary: summary,
+    };
+
+    chrome.storage.local.set({ key: page_meta });
   })
   .catch((error) => {
-    // console.error("Error:", error);
+    console.error("Error:", error);
   });
 
-// console.log(freqMap)
-
-// const sortedFreqMap = Object.entries(freqMap)
-//   .sort(([, val1], [, val2]) => val1 - val2)
-//   .reduce((result, [key, value]) => {
-//     result[key] = value;
-//     return result;
-//   }, {});
-
-// // console.log(sortedFreqMap);
-
-let sorted_Map = [];
-for (var word in freqMap) {
-  sorted_Map.push([word, freqMap[word]]);
-}
-
-sorted_Map.sort(function (a, b) {
-  return b[1] - a[1];
-});
 
 common_words = [
   "i",
@@ -256,6 +240,15 @@ common_words = [
   "without",
 ];
 
+let sorted_Map = [];
+for (var word in freqMap) {
+  sorted_Map.push([word, freqMap[word]]);
+}
+
+sorted_Map.sort(function (a, b) {
+  return b[1] - a[1];
+});
+
 var most_common = [];
 
 sorted_Map.forEach((t) => {
@@ -264,50 +257,7 @@ sorted_Map.forEach((t) => {
   }
 });
 
-var freq_word = [];
-for (var i = 0; i < Math.min(most_common.length, 10); i++) {
-  freq_word.push(most_common[i]);
-}
+var freq_word = most_common.slice(0, 10); // use slice instead of a for loop to get the first 10 elements
 
-var summary;
-fetch("http://127.0.0.1:5000/summarize", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type,Authorization",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
-  },
-  body: JSON.stringify(data),
-})
-  .then((res) => {
-    // console.log("Request complete! response:", res);
-    return res.json(); // return the Promise from res.json()
-  })
-  .then((json) => {
-    // page_meta = {
-    //   freq_word: freq_word,
-    //   summary: summary,
-    // };
-    summary = json.summary;
-    console.log("Hello");
-    console.log(summary);
-
-    page_meta = {
-      freq_word: freq_word,
-      summary: summary,
-    };
-
-    // console.log("Response JSON:", json);
-    // chrome.runtime.sendMessage(count);
-    chrome.storage.local.set({ key: page_meta });
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
-
-  // page_meta = {
-  //   freq_word: freq_word,
-  //   summary: summary,
-  // };
-// console.log(freq_word);
+console.log(freq_word);
+console.log(summary);
