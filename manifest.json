@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Hello Extensions",
-  "description": "Base Level Extension",
-  "version": "1.0",
+  "name": "Report.AI",
+  "description": "5-Star Rating, Summary, Report n much more..",
+  "version": "1.1",
   "action": {
     "default_popup": "hello.html",
     "default_icon": "icon.png"
