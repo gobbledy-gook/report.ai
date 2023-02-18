@@ -32,7 +32,7 @@ print(ratings_collection)
 def openai_summarizer(text):
     prompt = f"summarize the following text in paragraphs:\n{text}"
     response = openai.Completion.create(
-        engine="davinci",
+        engine="curie",
         prompt=prompt,
         max_tokens=100,  # adjust to control length of summary
         n=1,
@@ -42,6 +42,18 @@ def openai_summarizer(text):
     summary = response.choices[0].text.strip()
     return summary
 
+def GPT_ask(text):
+    prompt = f"Answer the following question in context of above text:\n{text}"
+    response = openai.Completion.create(
+        engine="curie",
+        prompt=prompt,
+        max_tokens=100,  # adjust to control length of summary
+        n=1,
+        stop=None,
+        temperature=0.7,  # adjust to control creativity of summary
+    )
+    answer = response.choices[0].text.strip()
+    return answer
 
 @app.route('/summarize', methods=['POST'])
 def summarize():
@@ -89,9 +101,8 @@ def save_entry():
 
     return jsonify({'status': 'success'})
 
-
 @app.route('/get_rating', methods=['POST'])
-def get_rating():
+def get_rating_():
     req_data = request.get_json()
     url = req_data['url']
     res = ratings_collection.find_one({'url': url})
@@ -101,6 +112,23 @@ def get_rating():
         response = jsonify({'rating': 0})
     return response
 
+@app.route('/ask-question', methods=['POST'])
+def ask():
+    req_data = request.get_json()
+    text_data = req_data['quest']
+
+    # Add CORS headers to the response
+    response = jsonify({'status': 'success'})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers',
+                         'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods',
+                         'GET,PUT,POST,DELETE,OPTIONS')
+
+    print(GPT_ask(text_data))
+    response = jsonify({'answer': GPT_ask(text_data)})
+    print(response)
+    return response
 
 @app.route('/top_ratings')
 def top_ratings():
