@@ -6,18 +6,28 @@
   font-family: 'Poppins', sans-serif;
 }
 html,body{
+  min-width:400px;
   display: grid;
   height: 100%;
   place-items: center;
   text-align: center;
-  background: #000;
+  background: #111;
 }
+
+.topbar{
+  padding-top:20px;
+  padding-left:20px;
+  padding-right:20px;
+  width:100%;
+  display:flex;
+  flex-direction: row;
+  color:white
+}
+
 .container{
   position: relative;
-  width: 400px;
-  background: #111;
-  padding: 20px 30px;
-  border: 1px solid #444;
+  width: 100%;
+  padding: 20px;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -27,8 +37,9 @@ html,body{
 .container .post{
   display: none;
 }
+
 .container .text{
-  font-size: 25px;
+  font-size: 20px;
   color: #666;
   font-weight: 500;
 }
@@ -42,7 +53,7 @@ html,body{
   cursor: pointer;
 }
 .container .edit:hover{
-  text-decoration: underline;
+  color:#eee;
 }
 
 .container .star-widget input{
@@ -50,11 +61,12 @@ html,body{
 }
 
 .star-widget label{
-  font-size: 40px;
+  font-size: 15px;
   color: #444;
-  padding: 10px;
+  padding: 5px;
   float: right;
   transition: all 0.2s ease;
+  text-align: right;
 }
 input:not(:checked) ~ label:hover,
 input:not(:checked) ~ label:hover ~ label{
@@ -68,23 +80,23 @@ input#rate-5:checked ~ label{
   text-shadow: 0 0 20px #952;
 }
 #rate-1:checked ~ form header:before{
-  content: "I just hate it ";
+  content: "Waste";
 }
 #rate-2:checked ~ form header:before{
-  content: "I don't like it ";
+  content: "Dislike ";
 }
 #rate-3:checked ~ form header:before{
-  content: "It is awesome ";
+  content: "Good";
 }
 #rate-4:checked ~ form header:before{
-  content: "I just like it ";
+  content: "Great";
 }
 #rate-5:checked ~ form header:before{
-  content: "I just love it ";
+  content: "Awesome";
 }
-/* .container form{
+.container form{
   display: none; 
-} */
+}
 
 input:checked ~ form{
   display: block;
@@ -92,7 +104,7 @@ input:checked ~ form{
 
 form header{
   width: 100%;
-  font-size: 25px;
+  font-size: 15px;
   color: #fe7;
   font-weight: 500;
   margin: 5px 0 20px 0;
@@ -100,7 +112,7 @@ form header{
   transition: all 0.2s ease;
 }
 form .textarea{
-  height: 100px;
+  /* height: 100px; */
   width: 100%;
   /* overflow: hidden; */
 }
@@ -112,7 +124,7 @@ form .textarea textarea{
   border: 1px solid #333;
   background: #222;
   padding: 10px;
-  font-size: 17px;
+  font-size: 12px;
   resize: none;
 }
 .textarea textarea:focus{
@@ -130,7 +142,7 @@ form .btn button{
   outline: none;
   background: #222;
   color: #999;
-  font-size: 17px;
+  font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
   cursor: pointer;
@@ -138,4 +150,10 @@ form .btn button{
 }
 form .btn button:hover{
   background: #1b1b1b;
+}
+
+.review{
+  display: flex;
+  justify-content: center;
+  flex-direction:column;
 }
