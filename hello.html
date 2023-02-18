@@ -1,6 +1,38 @@
 <html>
-  <body bg = "red">
-    <h1>Hello Extensions</h1>
-    <script src="popup.js"></script>
-  </body>
+
+<head>
+  <style>
+    body {
+      background-color: rgb(255, 255, 255);
+    }
+
+    h1 {
+      padding: 1%;
+    }
+
+    .rating {
+      width: 180px;
+    }
+
+    .rating__star {
+      cursor: pointer;
+      color: #dabd18b2;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Report.ai</h1>
+
+  <div class="rating">
+    <i class="rating__star far fa-star"></i>
+    <i class="rating__star far fa-star"></i>
+    <i class="rating__star far fa-star"></i>
+    <i class="rating__star far fa-star"></i>
+    <i class="rating__star far fa-star"></i>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
 </html>
