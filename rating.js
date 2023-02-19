@@ -3,10 +3,10 @@ const post = document.querySelector(".post");
 const widget = document.querySelector(".star-widget");
 const editBtn = document.querySelector(".edit");
 var rating = 0;
+const askbtn = document.querySelector("askbtn");
 btn.onclick = () => {
-  // console.log("Button Clicked!");
+  var review = document.getElementById("review").value;
   var b1 = document.getElementsByClassName("radiobutton");
-  // console.log("radio fetched!");
   for (let i = 0; i < 5; i++) {
     if (b1[i].checked) {
       console.log(5 - i);
@@ -24,8 +24,17 @@ btn.onclick = () => {
   btn.style.backgroundColor = "white";
   btn.style.color = "#111";
 
+  console.log("Review :", review);
   return false;
 };
+
+askbtn.onclick = () => {
+  var ques = document.getElementById("ask").value;
+} 
+
+askbtn.onclick = () => {
+  var ques = document.getElementById("ask").value;
+} 
 
 function saveEntry(rating, url) {
   let data = { rating: rating, url: url };

@@ -6,18 +6,33 @@
   "browser_action": {
     "default_popup": "hello.html"
   },
-  "permissions" : ["storage", "http://127.0.0.1:5000/*", "tabs"],
+  "permissions": [
+    "storage",
+    "http://127.0.0.1:5000/*",
+    "background",
+    "tabs"
+  ],
+  "background": {
+    "scripts": [
+      "./background.js", "./popup.js"
+    ],
+    "persistent": false
+  },
   "icons": {
     "16": "icon.png",
     "32": "icon.png",
     "48": "icon.png",
     "128": "icon.png"
   },
-  "content_scripts": [{
-    "matches": ["https://*/*","http://*/*"],
-    "js": ["./content.js"]
-    }],
-  "background":{
-    "scripts" : ["./popup.js"]
-  }
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ],
+      "js": [
+        "./content.js"
+      ]
+    }
+  ]
 }

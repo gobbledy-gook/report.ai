@@ -37,7 +37,7 @@ def openai_summarizer(text):
         max_tokens=100,  # adjust to control length of summary
         n=1,
         stop=None,
-        temperature=0.2,  # adjust to control creativity of summary
+        temperature=0.5,  # adjust to control creativity of summary
     )
     summary = response.choices[0].text.strip()
     return summary

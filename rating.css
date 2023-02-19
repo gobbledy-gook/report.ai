@@ -11,7 +11,7 @@ html,body{
   height: 100%;
   place-items: center;
   text-align: center;
-  background: #202020;
+  background-color: #373636;
  
 }
 
@@ -19,17 +19,20 @@ html,body{
   padding-top:20px;
   padding-left:20px;
   padding-right:20px;
-  width:100%;
+  width:400px;
   display:flex;
   flex-direction: row;
   color:white;  
+  border-top: 1px solid rgba(197, 197, 197, 0.201);
   /* color: rgba(255, 201, 54, 0.761); */
 }
 
 .container{
   position: relative;
   width: 400px;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top:10px;
   margin: 8px;
 
   border-radius: 5px;
@@ -52,13 +55,13 @@ html,body{
   position: absolute;
   right: 10px;
   top: 5px;
-  font-size: 16px;
+  font-size: 30px;
   color: #666;
   font-weight: 500;
   cursor: pointer;
 }
 .container .edit:hover{
-  color:#eee;
+  color:#e2e0e0;
 }
 
 .container .star-widget input{
@@ -137,14 +140,17 @@ form .textarea textarea{
   font-size: 12px;
   resize: none;
 }
+
 .textarea textarea:focus{
   border-color: #444;
 }
+
 form .btn{
   height: 45px;
   width: 100%;
   margin: 15px 0;
 }
+
 form .btn button{
   height: 100%;
   width: 100%;
@@ -190,18 +196,74 @@ form .btn button:hover{
 }
 
 .bottom{
-  padding-top:10px;
+  padding:15px;
   width: 100%;
-  color:rgb(156, 156, 156);
+  color:rgb(145, 145, 145);
   border-top: 1px solid rgba(128, 128, 128, 0.308);
+  background-color: #2a2a2a
 }
 
 .Summary{
-  background-color: #333;
-  width:332;
+
+  background-color: #272727;
+  width:360;
+  height:200;
   padding:5px;
-  display:block;
+  /* display:block; */
+  display: none;
   float:left;
   text-align: left;
-  overflow-x: scroll;
+  overflow-y:hidden;
+  color:#c6c6c6;
+}
+
+.loader {
+  width:100%;
+  margin-top:5%;
+  margin-bottom:5%;
+  margin-left:40%;
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #dba934; /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+  display:none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.generate{
+  border: 1px solid rgba(255, 255, 255, 0.794);
+  /* border: 1px solid rgba(255, 255, 255, 0.712); */
+  border-radius: 7px;
+  background-color: rgb(211, 118, 48);
+  padding-left:7px;
+  padding-right:7px;
+  margin-left:40%;
+}
+
+.generate:hover{
+  border: 1px solid rgba(255, 255, 255, 0.794);
+  border-radius: 7px;
+  background-color: rgb(51, 51, 51);
+  padding-left:7px;
+  padding-right:7px;
+  margin-left:40%;
+  color: white;
+}
+
+#textarea2{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  color: #eee;
+  border: 1px solid #333;
+  background: #222;
+  padding: 10px;
+  font-size: 12px;
+  resize: none;
 }
