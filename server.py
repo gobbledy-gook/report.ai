@@ -43,14 +43,13 @@ def openai_summarizer(text):
     return summary
 
 def GPT_ask(text):
-    prompt = f'''Answer the following question in context of above passage:\n{text}'''
+    prompt = f'''write regarding, {text}, in the context of previous text.'''
     response = openai.Completion.create(
         engine="curie",
         prompt=prompt,
         max_tokens=100,  # adjust to control length of summary
         n=1,
-        stop=None,
-        temperature=0.7,  # adjust to control creativity of summary
+        temperature=0.5,  # adjust to control creativity of summary
     )
     answer = response.choices[0].text.strip()
     return answer
