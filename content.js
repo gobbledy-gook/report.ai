@@ -268,6 +268,10 @@ var freq_word = [];
 for (var i = 0; i < Math.min(most_common.length, 10); i++) {
   freq_word.push(most_common[i]);
 }
+var freq_word = [];
+for (var i = 0; i < Math.min(most_common.length, 10); i++) {
+  freq_word.push(most_common[i]);
+}
 
 var summary;
 fetch("http://127.0.0.1:5000/summarize", {
