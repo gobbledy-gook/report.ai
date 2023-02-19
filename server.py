@@ -42,8 +42,8 @@ def openai_summarizer(text):
     summary = response.choices[0].text.strip()
     return summary
 
-def GPT_ask(text, summary):
-    prompt = f'''Answer the following question in context of "{summary}":\n{text}'''
+def GPT_ask(text):
+    prompt = f'''Answer the following question in context of above passage:\n{text}'''
     response = openai.Completion.create(
         engine="curie",
         prompt=prompt,
@@ -116,7 +116,7 @@ def get_rating_():
 def ask():
     req_data = request.get_json()
     text_data = req_data['quest']
-    text_summ = req_data['summary']
+    # text_summ = req_data['summary']
 
     # Add CORS headers to the response
     response = jsonify({'status': 'success'})
@@ -127,7 +127,7 @@ def ask():
                          'GET,PUT,POST,DELETE,OPTIONS')
 
     print(GPT_ask(text_data))
-    response = jsonify({'answer': GPT_ask(text_data, text_summ)})
+    response = jsonify({'answer': GPT_ask(text_data)})
     print(response)
     return response
 

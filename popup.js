@@ -4,9 +4,9 @@ function logger(result) {
   const btn2 = document.querySelector("#summary");
   btn1.onclick = () => {
     for (let i = 0; i < 10; i++) {
-      console.log(result.key[i]);
+      // console.log(result.key[i]);
       var s = document.createElement("span");
-      alert(result.key.freq_word);
+      // alert(result.key.freq_word);
       s.innerHTML = result.key.freq_word[i];
       s.style.backgroundColor = "rgba(255, 255, 255, 0.212)";
       s.style.border = "1px solid rgba(255, 255, 255,0.4)";

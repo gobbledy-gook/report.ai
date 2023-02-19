@@ -33,8 +33,8 @@ function logger(result) {
   askbtn.onclick = () => {
     var ques = document.getElementById("ask").value;
     askQuestion(sum, ques);
-    alert(sum);
-    alert(ques);
+    // alert(sum);
+    // alert(ques);
   }
 
 }
@@ -53,8 +53,8 @@ function logger(result) {
 // } 
 
 
-function askQuestion(summary, question) {
-  let data = { quest: question, summary: summary };
+function askQuestion(question) {
+  let data = { quest: question};
   fetch("http://127.0.0.1:5000/ask-question", {
     method: "POST",
     headers: {
@@ -67,7 +67,9 @@ function askQuestion(summary, question) {
   })
   .then((json) => {
     console.log("Response JSON:", json.answer);
-    document.getElementById("Answer").innerHTML = json.answer;
+    var answerDiv = document.getElementById("Answer");
+    answerDiv.style.display = "block";
+    answerDiv.innerHTML = json.answer;
   })
   .catch((error) => { });
 }

@@ -267,3 +267,16 @@ form .btn button:hover{
   font-size: 12px;
   resize: none;
 }
+
+#Answer{
+  background-color: #272727;
+  width:360;
+  height:200;
+  padding:5px;
+  /* display:block; */
+  display: none;
+  float:left;
+  text-align: left;
+  overflow-y:hidden;
+  color:#c6c6c6;
+}
