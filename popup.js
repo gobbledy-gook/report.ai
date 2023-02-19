@@ -30,14 +30,50 @@ function logger(result) {
     divSum.innerHTML = result.key.summary;
     btn2.style.display = "none";
   } 
+
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    var currentUrl = tabs[0].url;
+    console.log("Current URL : " + currentUrl);
+    getRating(currentUrl);
+  });
+}
+
+function getRating(url) {
+  let data = { url: url };
+  fetch("http://127.0.0.1:5000/get_rating", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      console.log("Response JSON:", json.rating);
+      document.getElementById("rating-score").innerHTML = json.rating;
+    })
+    .catch((error) => {});
+}
+
+function askQuestion(question) {
+  let data = { quest: question };
+  fetch("http://127.0.0.1:5000/ask-question", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      console.log("Response JSON:", json.answer);
+      document.getElementById("Answer").innerHTML = json.answer;
+    })
+    .catch((error) => {});
 }
 
 chrome.storage.local.get(["key"], logger);
-
-// for (let i = 0; i < result.key.length; i++) {
-//   console.log(result.key[i]);
-//   var s = document.createElement("span");
-//   s.innerHTML = result.key[i];
-//   var parent = document.getElementsByClassName("wordcloud");
-//   parent[0].appendChild(s);
-// };
