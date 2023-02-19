@@ -3,13 +3,13 @@ const post = document.querySelector(".post");
 const widget = document.querySelector(".star-widget");
 const editBtn = document.querySelector(".edit");
 var rating = 0;
-const askbtn = document.querySelector("askbtn");
+const askbtn = document.querySelector("#askbtn");
 btn.onclick = () => {
   var review = document.getElementById("review").value;
   var b1 = document.getElementsByClassName("radiobutton");
   for (let i = 0; i < 5; i++) {
     if (b1[i].checked) {
-      console.log(5 - i);
+      console.log(5 - i)
       rating = 5 - i;
       chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         var currentUrl = tabs[0].url;
@@ -17,7 +17,6 @@ btn.onclick = () => {
         var currentSiteName = currentUrl.split("/")[2]; // Get the third part of the URL
         console.log("Current URL : " + currentUrl); // removed unnecessary "str" call
         saveEntry(rating, currentUrl);
-        getRating(currentUrl);
       });
     }
   }
@@ -28,10 +27,30 @@ btn.onclick = () => {
   return false;
 };
 
-askbtn.onclick = () => {
-  var ques = document.getElementById("ask").value;
-  console.log(ques);
-} 
+function logger(result) {
+  var sum = result.key.summary;
+
+  askbtn.onclick = () => {
+    var ques = document.getElementById("ask").value;
+    askQuestion(sum, ques);
+    alert(sum);
+    alert(ques);
+  }
+
+}
+
+// btn2.onclick = () => {
+//   console.log("Summary: ", result.key.summary);
+//   var divSum = document.getElementById("summarizerDiv");
+//   divSum.style.display = "block";
+//   divSum.innerHTML = result.key.summary;
+//   btn2.style.display = "none";
+// } 
+
+// askbtn.onclick = () => {
+//   var ques = document.getElementById("ask").value;
+//   askQuestion(ques);
+// } 
 
 
 function askQuestion(summary, question) {
@@ -43,14 +62,14 @@ function askQuestion(summary, question) {
     },
     body: JSON.stringify(data),
   })
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      console.log("Response JSON:", json.answer);
-      document.getElementById("Answer").innerHTML = json.answer;
-    })
-    .catch((error) => {});
+  .then((res) => {
+    return res.json();
+  })
+  .then((json) => {
+    console.log("Response JSON:", json.answer);
+    document.getElementById("Answer").innerHTML = json.answer;
+  })
+  .catch((error) => { });
 }
 
 
@@ -67,18 +86,20 @@ function saveEntry(rating, url) {
     },
     body: JSON.stringify(data),
   })
-    .then((res) => {
-      // console.log("Request complete! response:", res);
-      return res.json(); // return the Promise from res.json()
-    })
-    .then((json) => {
-      console.log("Response JSON:", json);
-    })
-    .catch((error) => {});
+  .then((res) => {
+    // console.log("Request complete! response:", res);
+    return res.json(); // return the Promise from res.json()
+  })
+  .then((json) => {
+    console.log("Response JSON:", json);
+  })
+  .catch((error) => { });
 }
 // console.log(star_buttons);
 // star_buttons.forEach((btn) => {
-//   btn.addEventListener("click", (e) => {
-//     console.log(e.target);
-//   });
-// });
+  //   btn.addEventListener("click", (e) => {
+    //     console.log(e.target);
+    //   });
+    // });
+    
+chrome.storage.local.get(["key"], logger);
