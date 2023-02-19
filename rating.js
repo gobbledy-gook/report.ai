@@ -30,11 +30,29 @@ btn.onclick = () => {
 
 askbtn.onclick = () => {
   var ques = document.getElementById("ask").value;
+  console.log(ques);
 } 
 
-askbtn.onclick = () => {
-  var ques = document.getElementById("ask").value;
-} 
+
+function askQuestion(summary, question) {
+  let data = { quest: question, summary: summary };
+  fetch("http://127.0.0.1:5000/ask-question", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      console.log("Response JSON:", json.answer);
+      document.getElementById("Answer").innerHTML = json.answer;
+    })
+    .catch((error) => {});
+}
+
 
 function saveEntry(rating, url) {
   let data = { rating: rating, url: url };

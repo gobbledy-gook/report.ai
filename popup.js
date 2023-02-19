@@ -23,7 +23,6 @@ function logger(result) {
   }
 
   btn2.onclick = () => {
-    
     console.log("Summary: ", result.key.summary);
     var divSum = document.getElementById("summarizerDiv");
     divSum.style.display = "block";
@@ -52,26 +51,9 @@ function getRating(url) {
     })
     .then((json) => {
       console.log("Response JSON:", json.rating);
-      document.getElementById("rating-score").innerHTML = json.rating;
-    })
-    .catch((error) => {});
-}
-
-function askQuestion(summary, question) {
-  let data = { quest: question, summary: summary };
-  fetch("http://127.0.0.1:5000/ask-question", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      console.log("Response JSON:", json.answer);
-      document.getElementById("Answer").innerHTML = json.answer;
+      var rating = json.rating;
+      console.log(rating.toFixed(2))
+      document.getElementById("overallRating").innerHTML = rating.toFixed(2);
     })
     .catch((error) => {});
 }
