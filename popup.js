@@ -48,8 +48,8 @@ function getRating(url) {
     .catch((error) => {});
 }
 
-function askQuestion(question) {
-  let data = { quest: question };
+function askQuestion(summary, question) {
+  let data = { quest: question, summary: summary };
   fetch("http://127.0.0.1:5000/ask-question", {
     method: "POST",
     headers: {

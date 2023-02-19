@@ -259,5 +259,5 @@ sorted_Map.forEach((t) => {
 
 var freq_word = most_common.slice(0, 10); // use slice instead of a for loop to get the first 10 elements
 
-console.log(freq_word);
-console.log(summary);
+// console.log(freq_word);
+// console.log(summary);
