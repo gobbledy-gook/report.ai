@@ -17,14 +17,14 @@ print(api_key)
 
 
 def openai_summarizer(text):
-    prompt = f"Please summarize the following text:\n{text}"
+    prompt = f"Summarize this text and give a brief note on it:\n{text[:2000]}"
     response = openai.Completion.create(
-        engine="davinci",
+        engine="curie",
         prompt=prompt,
         max_tokens=100,  # adjust to control length of summary
         n=1,
         stop=None,
-        temperature=0.2,  # adjust to control creativity of summary
+        temperature=0.5,  # adjust to control creativity of summary
     )
     summary = response.choices[0].text.strip()
     return summary
