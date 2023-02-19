@@ -257,7 +257,44 @@ sorted_Map.forEach((t) => {
   }
 });
 
-var freq_word = most_common.slice(0, 10); // use slice instead of a for loop to get the first 10 elements
+var freq_word = [];
+for (var i = 0; i < Math.min(most_common.length, 10); i++) {
+  freq_word.push(most_common[i]);
+}
 
-console.log(freq_word);
-console.log(summary);
+var summary;
+fetch("http://127.0.0.1:5000/summarize", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type,Authorization",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+  },
+  body: JSON.stringify(data),
+})
+  .then((res) => {
+    // console.log("Request complete! response:", res);
+    return res.json(); // return the Promise from res.json()
+  })
+  .then((json) => {
+    // page_meta = {
+    //   freq_word: freq_word,
+    //   summary: summary,
+    // };
+    summary = json.summary;
+    console.log("Hello");
+    console.log(summary);
+
+    page_meta = {
+      freq_word: freq_word,
+      summary: summary,
+    };
+
+    // console.log("Response JSON:", json);
+    // chrome.runtime.sendMessage(count);
+    chrome.storage.local.set({ key: page_meta });
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
