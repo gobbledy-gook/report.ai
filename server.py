@@ -30,11 +30,12 @@ print(ratings_collection)
 
 
 def openai_summarizer(text):
+    """summarizer function"""
     prompt = f"summarize the following text in paragraphs:\n{text}"
     response = openai.Completion.create(
         engine="curie",
         prompt=prompt,
-        max_tokens=100,  # adjust to control length of summary
+        max_tokens=300,  # adjust to control length of summary
         n=1,
         stop=None,
         temperature=0.5,  # adjust to control creativity of summary
@@ -42,7 +43,9 @@ def openai_summarizer(text):
     summary = response.choices[0].text.strip()
     return summary
 
+
 def GPT_ask(text):
+    """Ask Question feature implementation"""
     prompt = f'''write regarding, {text}, in the context of previous text.'''
     response = openai.Completion.create(
         engine="curie",
@@ -54,8 +57,10 @@ def GPT_ask(text):
     answer = response.choices[0].text.strip()
     return answer
 
+
 @app.route('/summarize', methods=['POST'])
 def summarize():
+    """Summarizer"""
     req_data = request.get_json()
     text_data = req_data['text_data']
     # text_data = req_data.get('text_data')
@@ -79,6 +84,7 @@ def summarize():
 
 @app.route('/save_entry', methods=['POST'])
 def save_entry():
+    """Rating saver"""
     req_data = request.get_json()
     print(req_data)
     url = req_data['url']
@@ -100,8 +106,10 @@ def save_entry():
 
     return jsonify({'status': 'success'})
 
+
 @app.route('/get_rating', methods=['POST'])
 def get_rating_():
+    """Rating fetcher"""
     req_data = request.get_json()
     url = req_data['url']
     res = ratings_collection.find_one({'url': url})
@@ -111,8 +119,10 @@ def get_rating_():
         response = jsonify({'rating': 0})
     return response
 
+
 @app.route('/ask-question', methods=['POST'])
 def ask():
+    """Question handler"""
     req_data = request.get_json()
     text_data = req_data['quest']
     # text_summ = req_data['summary']
@@ -130,8 +140,10 @@ def ask():
     print(response)
     return response
 
+
 @app.route('/top_ratings')
 def top_ratings():
+    """Fetching the top ratings"""
     tops = ratings_collection.find().sort("rating", -1)
     tops_list = []
     for top in tops:
