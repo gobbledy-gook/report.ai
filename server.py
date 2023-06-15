@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from bson.json_util import dumps
-# jLlPFEAAwS9pRuab
 
 
 load_dotenv()
@@ -18,9 +17,8 @@ api_key = os.environ.get('API_KEY')
 mongo_pass = os.environ.get('MONGO')
 openai.api_key = api_key
 
-mongo_uri = "mongodb+srv://ansah:" + mongo_pass + \
-    "@cluster0.eswdqot.mongodb.net/test"
-print(api_key)
+mongo_uri = "mongodb+srv://mohdansah10:" + mongo_pass + \
+    "@cluster0.dsdb23w.mongodb.net/"
 print(mongo_uri)
 
 client = MongoClient(mongo_uri)
