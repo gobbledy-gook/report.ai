@@ -7,7 +7,6 @@ to_select.forEach((t) => {
     theText += s.innerText;
   });
 });
-// console.log("test");
 
 var word_count = theText.split(" ").length;
 
@@ -43,22 +42,11 @@ fetch("http://127.0.0.1:5000/summarize", {
     return res.json(); // return the Promise from res.json()
   })
   .then((json) => {
-    // console.log("Response JSON:", json);
+    console.log("Response JSON:", json);
   })
   .catch((error) => {
-    // console.error("Error:", error);
+    console.error("Error:", error);
   });
-
-// console.log(freqMap)
-
-// const sortedFreqMap = Object.entries(freqMap)
-//   .sort(([, val1], [, val2]) => val1 - val2)
-//   .reduce((result, [key, value]) => {
-//     result[key] = value;
-//     return result;
-//   }, {});
-
-// // console.log(sortedFreqMap);
 
 let sorted_Map = [];
 for (var word in freqMap) {
@@ -285,14 +273,9 @@ fetch("http://127.0.0.1:5000/summarize", {
   body: JSON.stringify(data),
 })
   .then((res) => {
-    // console.log("Request complete! response:", res);
     return res.json(); // return the Promise from res.json()
   })
   .then((json) => {
-    // page_meta = {
-    //   freq_word: freq_word,
-    //   summary: summary,
-    // };
     summary = json.summary;
     console.log("Hello");
     console.log(summary);
@@ -302,16 +285,8 @@ fetch("http://127.0.0.1:5000/summarize", {
       summary: summary,
     };
 
-    // console.log("Response JSON:", json);
-    // chrome.runtime.sendMessage(count);
     chrome.storage.local.set({ key: page_meta });
   })
   .catch((error) => {
     console.error("Error:", error);
   });
-
-// page_meta = {
-//   freq_word: freq_word,
-//   summary: summary,
-// };
-// console.log(freq_word);
