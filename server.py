@@ -13,16 +13,15 @@ app = Flask(__name__)
 cors = CORS(app)
 
 
-api_key = os.environ.get('API_KEY')
-mongo_pass = os.environ.get('MONGO')
+api_key = os.environ.get("API_KEY")
+mongo_pass = os.environ.get("MONGO")
 openai.api_key = api_key
 
-mongo_uri = "mongodb+srv://mohdansah10:" + mongo_pass + \
-    "@cluster0.dsdb23w.mongodb.net/"
+mongo_uri = "mongodb+srv://mohdansah10:" + mongo_pass + "@cluster0.dsdb23w.mongodb.net/"
 print(mongo_uri)
 
 client = MongoClient(mongo_uri)
-ratings_collection = client['report']['rating']
+ratings_collection = client["report"]["rating"]
 
 print(ratings_collection)
 
@@ -44,7 +43,7 @@ def openai_summarizer(text):
 
 def GPT_ask(text):
     """Ask Question feature implementation"""
-    prompt = f'''write regarding, {text}, in the context of previous text.'''
+    prompt = f"""write regarding, {text}, in the context of previous text."""
     response = openai.Completion.create(
         engine="curie",
         prompt=prompt,
@@ -56,90 +55,81 @@ def GPT_ask(text):
     return answer
 
 
-@app.route('/summarize', methods=['POST'])
+@app.route("/summarize", methods=["POST"])
 def summarize():
     """Summarizer"""
     req_data = request.get_json()
-    text_data = req_data['text_data']
+    text_data = req_data["text_data"]
     # text_data = req_data.get('text_data')
     # print(req_data)
     # generated_text = response.choices[0].text
     # return generated_text
 
     # Add CORS headers to the response
-    response = jsonify({'status': 'success'})
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers',
-                         'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods',
-                         'GET,PUT,POST,DELETE,OPTIONS')
+    response = jsonify({"status": "success"})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+    response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
 
     print(openai_summarizer(text_data))
-    response = jsonify({'summary': openai_summarizer(text_data)})
+    response = jsonify({"summary": openai_summarizer(text_data)})
     print(response)
     return response
 
 
-@app.route('/save_entry', methods=['POST'])
+@app.route("/save_entry", methods=["POST"])
 def save_entry():
     """Rating saver"""
     req_data = request.get_json()
     print(req_data)
-    url = req_data['url']
-    curr_rating = req_data['rating']
-    res = ratings_collection.find_one({'url': url})
+    url = req_data["url"]
+    curr_rating = req_data["rating"]
+    res = ratings_collection.find_one({"url": url})
 
     if res:
-        new_rating = (res['rating'] * res['freq'] +
-                      curr_rating)/(res['freq'] + 1)
-        update = {'$set': {'rating': new_rating, 'freq': res['freq'] + 1}}
-        ratings_collection.update_many({'url': url}, update)
+        new_rating = (res["rating"] * res["freq"] + curr_rating) / (res["freq"] + 1)
+        update = {"$set": {"rating": new_rating, "freq": res["freq"] + 1}}
+        ratings_collection.update_many({"url": url}, update)
     else:
-        new_doc = {
-            'url': url,
-            'rating': curr_rating,
-            'freq': 1
-        }
+        new_doc = {"url": url, "rating": curr_rating, "freq": 1}
         ratings_collection.insert_one(new_doc)
 
-    return jsonify({'status': 'success'})
+    return jsonify({"status": "success"})
 
 
-@app.route('/get_rating', methods=['POST'])
+@app.route("/get_rating", methods=["POST"])
 def get_rating_():
     """Rating fetcher"""
     req_data = request.get_json()
-    url = req_data['url']
-    res = ratings_collection.find_one({'url': url})
+    url = req_data["url"]
+    res = ratings_collection.find_one({"url": url})
     if res:
-        response = jsonify({'rating': res['rating']})
+        response = jsonify({"rating": res["rating"]})
     else:
-        response = jsonify({'rating': 0})
+        response = jsonify({"rating": 0})
     return response
 
 
-@app.route('/ask-question', methods=['POST'])
+@app.route("/ask-question", methods=["POST"])
 def ask():
     """Question handler"""
     req_data = request.get_json()
-    text_data = req_data['quest']
+    text_data = req_data["quest"]
     # text_summ = req_data['summary']
 
     # Add CORS headers to the response
-    response = jsonify({'status': 'success'})
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers',
-                         'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods',
-                         'GET,PUT,POST,DELETE,OPTIONS')
+    response = jsonify({"status": "success"})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+    response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
 
     print(GPT_ask(text_data))
-    response = jsonify({'answer': GPT_ask(text_data)})
+    response = jsonify({"answer": GPT_ask(text_data)})
     print(response)
     return response
 
 
-@app.route('/top_ratings')
+@app.route("/top_ratings")
 def top_ratings():
     """Fetching the top ratings"""
     tops = ratings_collection.find().sort("rating", -1)
@@ -147,10 +137,10 @@ def top_ratings():
     for top in tops:
         tops_list.append(dumps(top))
 
-    response = {'top': tops_list}
+    response = {"top": tops_list}
     return jsonify(response)
 
 
 # app.route('/save')
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)

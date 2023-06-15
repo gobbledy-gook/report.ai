@@ -17,11 +17,11 @@ function logger(result) {
       s.style.float = "left";
       var parent = document.getElementsByClassName("worldcloudpara");
       parent[0].appendChild(s);
-      if(i===9){
+      if (i === 9) {
         btn1.style.display = "none";
       }
     }
-  }
+  };
 
   btn2.onclick = () => {
     console.log("Summary: ", result.key.summary);
@@ -29,7 +29,7 @@ function logger(result) {
     divSum.style.display = "block";
     divSum.innerHTML = result.key.summary;
     btn2.style.display = "none";
-  } 
+  };
 
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     var currentUrl = tabs[0].url;
@@ -53,7 +53,7 @@ function getRating(url) {
     .then((json) => {
       console.log("Response JSON:", json.rating);
       var rating = json.rating;
-      console.log(rating.toFixed(2))
+      console.log(rating.toFixed(2));
       document.getElementById("overallRating").innerHTML = rating.toFixed(2);
     })
     .catch((error) => {});

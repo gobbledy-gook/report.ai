@@ -310,8 +310,8 @@ fetch("http://127.0.0.1:5000/summarize", {
     console.error("Error:", error);
   });
 
-  // page_meta = {
-  //   freq_word: freq_word,
-  //   summary: summary,
-  // };
+// page_meta = {
+//   freq_word: freq_word,
+//   summary: summary,
+// };
 // console.log(freq_word);
