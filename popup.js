@@ -1,5 +1,11 @@
 function logger(result) {
-  // let colors = ["rgba(255, 54, 54, 0.735)", "rgba(54, 255, 134, 0.735)", "rgba(54, 181, 255, 0.785)", "rgba(255, 201, 54, 0.761)", "rgba(255, 255, 255, 0.535)"]
+
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    var currentUrl = tabs[0].url;
+    console.log("Current URL : " + currentUrl);
+    getRating(currentUrl);
+  });
+
   const btn1 = document.querySelector("#generate_words");
   const btn2 = document.querySelector("#summary");
   btn1.onclick = () => {
@@ -30,12 +36,6 @@ function logger(result) {
     divSum.innerHTML = result.key.summary;
     btn2.style.display = "none";
   };
-
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    var currentUrl = tabs[0].url;
-    console.log("Current URL : " + currentUrl);
-    getRating(currentUrl);
-  });
 }
 
 function getRating(url) {
