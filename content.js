@@ -1,6 +1,7 @@
 var theText;
-var to_select = ["p", "h1", "h2", "h3", "h5", "h6"];
+var to_select = ["p", "h1", "h2", "h3", "h5", "h6"]; //tags to extract texts from
 
+// extracting the data
 to_select.forEach((t) => {
   selected = document.querySelectorAll(t);
   selected.forEach((s) => {
@@ -10,6 +11,7 @@ to_select.forEach((t) => {
 
 var word_count = theText.split(" ").length;
 
+// creating a frequency map for the extracted words
 function wordFreq(string) {
   var words = string.replace(/[.]/g, "").split(/\s/);
   var freqMap = {};
@@ -23,15 +25,13 @@ function wordFreq(string) {
   return freqMap;
 }
 
+// sorting the frequency to get most frequent words
 var freqMap = wordFreq(theText);
-
 let data = { text_data: theText };
-
 let sorted_Map = [];
 for (var word in freqMap) {
   sorted_Map.push([word, freqMap[word]]);
 }
-
 sorted_Map.sort(function (a, b) {
   return b[1] - a[1];
 });
@@ -58,12 +58,14 @@ common_words = [
 
 var most_common = [];
 
+// removing the common words from the sorted freq list
 sorted_Map.forEach((t) => {
   if (!common_words.includes(t[0].toLowerCase()) && t[0].length > 4) {
     most_common.push(t[0]);
   }
 });
 
+// storing top 10 frequent word in freq_word
 var freq_word = [];
 for (var i = 0; i < Math.min(most_common.length, 10); i++) {
   freq_word.push(most_common[i]);
@@ -71,6 +73,7 @@ for (var i = 0; i < Math.min(most_common.length, 10); i++) {
 
 console.log(freq_word)
 
+// fetching the summary of the content through the API
 var summary;
 fetch("http://127.0.0.1:5000/summarize", {
   method: "POST",
@@ -93,6 +96,8 @@ fetch("http://127.0.0.1:5000/summarize", {
       summary: summary,
     };
 
+
+    // saving the data in local storage
     chrome.storage.local.set({ key: page_meta });
   })
   .catch((error) => {

@@ -1,5 +1,5 @@
 function logger(result) {
-
+  // return the rating of the site from database
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     var currentUrl = tabs[0].url;
     console.log("Current URL : " + currentUrl);
@@ -9,6 +9,7 @@ function logger(result) {
   const btn1 = document.querySelector("#generate_words");
   const btn2 = document.querySelector("#summary");
   btn1.onclick = () => {
+    // display the fetched word cloud
     for (let i = 0; i < 10; i++) {
       // console.log(result.key[i]);
       var s = document.createElement("span");
@@ -30,6 +31,7 @@ function logger(result) {
   };
 
   btn2.onclick = () => {
+    // display the summary fetched from the local storage
     console.log("Summary: ", result.key.summary);
     var divSum = document.getElementById("summarizerDiv");
     divSum.style.display = "block";
@@ -39,6 +41,7 @@ function logger(result) {
 }
 
 function getRating(url) {
+  // get rating through API
   let data = { url: url };
   fetch("http://127.0.0.1:5000/get_rating", {
     method: "POST",
@@ -59,4 +62,6 @@ function getRating(url) {
     .catch((error) => {});
 }
 
+
+// fetching the local data and calling the logger
 chrome.storage.local.get(["key"], logger);
