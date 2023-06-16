@@ -1,5 +1,4 @@
 import os
-import json
 import openai
 from flask_cors import CORS
 from dotenv import load_dotenv
@@ -58,22 +57,14 @@ def GPT_ask(text):
 @app.route("/summarize", methods=["POST"])
 def summarize():
     """Summarizer"""
-    req_data = request.get_json()
-    text_data = req_data["text_data"]
-    # text_data = req_data.get('text_data')
-    # print(req_data)
-    # generated_text = response.choices[0].text
-    # return generated_text
+    text_data = request.get_json()
 
-    # Add CORS headers to the response
+    # Adding CORS headers to the response
     response = jsonify({"status": "success"})
     response.headers.add("Access-Control-Allow-Origin", "*")
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
     response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
-
-    print(openai_summarizer(text_data))
     response = jsonify({"summary": openai_summarizer(text_data)})
-    print(response)
     return response
 
 

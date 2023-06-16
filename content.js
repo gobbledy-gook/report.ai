@@ -74,32 +74,11 @@ for (var i = 0; i < Math.min(most_common.length, 10); i++) {
 console.log(freq_word)
 
 // fetching the summary of the content through the API
-var summary;
-fetch("http://127.0.0.1:5000/summarize", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type,Authorization",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
-  },
-  body: JSON.stringify(data),
-})
-  .then((res) => {
-    return res.json(); // return the Promise from res.json()
-  })
-  .then((json) => {
-    summary = json.summary;
-
-    page_meta = {
-      freq_word: freq_word,
-      summary: summary,
-    };
+page_meta = {
+  freq_word: freq_word,
+  text: theText,
+};
 
 
-    // saving the data in local storage
-    chrome.storage.local.set({ key: page_meta });
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
+// saving the data in local storage
+chrome.storage.local.set({ key: page_meta });

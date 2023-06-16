@@ -30,13 +30,32 @@ function logger(result) {
     }
   };
 
-  btn2.onclick = () => {
-    // display the summary fetched from the local storage
-    console.log("Summary: ", result.key.summary);
-    var divSum = document.getElementById("summarizerDiv");
-    divSum.style.display = "block";
-    divSum.innerHTML = result.key.summary;
-    btn2.style.display = "none";
+  btn2.onclick = async () => {
+    // fetching the summary from server
+    try {
+      const response = await fetch("http://127.0.0.1:5000/summarize", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Content-Type,Authorization",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+        },
+        // sending text to summarize
+        body: JSON.stringify(result.key.text),
+      });
+
+      const json = await response.json();
+      const summary = json.summary;
+
+      console.log("Summary: ", summary);
+      var divSum = document.getElementById("summarizerDiv");
+      divSum.style.display = "block";
+      divSum.innerHTML = summary;
+      btn2.style.display = "none";
+    } catch (error) {
+      console.error("Error fetching summary:", error);
+    }
   };
 }
 
@@ -61,7 +80,6 @@ function getRating(url) {
     })
     .catch((error) => {});
 }
-
 
 // fetching the local data and calling the logger
 chrome.storage.local.get(["key"], logger);
