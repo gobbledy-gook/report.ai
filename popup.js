@@ -1,8 +1,17 @@
 function logger(result) {
-  // let colors = ["rgba(255, 54, 54, 0.735)", "rgba(54, 255, 134, 0.735)", "rgba(54, 181, 255, 0.785)", "rgba(255, 201, 54, 0.761)", "rgba(255, 255, 255, 0.535)"]
+  // return the rating of the site from database
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    var currentUrl = tabs[0].url;
+    console.log("Current URL : " + currentUrl);
+    getRating(currentUrl);
+  });
+
   const btn1 = document.querySelector("#generate_words");
   const btn2 = document.querySelector("#summary");
+  const btn3 = document.querySelector("#askbtn");
+  
   btn1.onclick = () => {
+    // display the fetched word cloud
     for (let i = 0; i < 10; i++) {
       // console.log(result.key[i]);
       var s = document.createElement("span");
@@ -17,28 +26,75 @@ function logger(result) {
       s.style.float = "left";
       var parent = document.getElementsByClassName("worldcloudpara");
       parent[0].appendChild(s);
-      if(i===9){
+      if (i === 9) {
         btn1.style.display = "none";
       }
     }
-  }
+  };
 
-  btn2.onclick = () => {
-    console.log("Summary: ", result.key.summary);
-    var divSum = document.getElementById("summarizerDiv");
-    divSum.style.display = "block";
-    divSum.innerHTML = result.key.summary;
-    btn2.style.display = "none";
-  } 
+  btn2.onclick = async () => {
+    // fetching the summary from server
+    try {
+      const response = await fetch("http://127.0.0.1:5000/summarize", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Content-Type,Authorization",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+        },
+        // sending text to summarize
+        body: JSON.stringify(result.key.text),
+      });
 
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    var currentUrl = tabs[0].url;
-    console.log("Current URL : " + currentUrl);
-    getRating(currentUrl);
-  });
+      const json = await response.json();
+      const summary = json.summary;
+
+      console.log("Summary: ", summary);
+      var divSum = document.getElementById("summarizerDiv");
+      divSum.style.display = "block";
+      divSum.innerHTML = summary;
+      btn2.style.display = "none";
+    } catch (error) {
+      console.error("Error fetching summary:", error);
+    }
+  };
+
+  btn3.onclick = async () => {
+	try {
+	  const question = document.getElementById("ask").value;
+	  console.log("Question is :")
+	  console.log(question)
+	  const response = await fetch("http://127.0.0.1:5000/ask-question", {
+		method: "POST",
+		headers: {
+		  "Content-Type": "application/json",
+		  "Access-Control-Allow-Origin": "*",
+		  "Access-Control-Allow-Headers": "Content-Type,Authorization",
+		  "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+		},
+		// sending the question to the server
+		body: JSON.stringify(question),
+	  });
+  
+	  const json = await response.json();
+	  const answer = json.answer;
+  
+	  console.log("Answer: ", answer);
+	  // Update the UI with the received answer
+	  var answerDiv = document.getElementById("Answer");
+	  answerDiv.style.display = "block";
+	  answerDiv.innerHTML = answer;
+	  btn3.style.display = "none";
+	} catch (error) {
+	  console.error("Error fetching answer:", error);
+	}
+  };
+
 }
 
 function getRating(url) {
+  // get rating through API
   let data = { url: url };
   fetch("http://127.0.0.1:5000/get_rating", {
     method: "POST",
@@ -53,10 +109,11 @@ function getRating(url) {
     .then((json) => {
       console.log("Response JSON:", json.rating);
       var rating = json.rating;
-      console.log(rating.toFixed(2))
+      console.log(rating.toFixed(2));
       document.getElementById("overallRating").innerHTML = rating.toFixed(2);
     })
     .catch((error) => {});
 }
 
+// fetching the local data and calling the logger
 chrome.storage.local.get(["key"], logger);

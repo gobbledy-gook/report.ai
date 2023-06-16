@@ -1,13 +1,13 @@
 # **report.ai**
 
-
 A chrome extension to rate, review and summarize websites.
 
 ## **Techstack**
-* **Extension:** HTML, CSS, JS
-* **Backend:** Flask
-* **Database:** MongoDB
-* **LeaderBoard Frontend:** ReactJS
+
+- **Extension:** HTML, CSS, JS
+- **Backend:** Flask
+- **Database:** MongoDB
+- **LeaderBoard Frontend:** ReactJS
 
 ## **Features**
 
@@ -20,6 +20,5 @@ A chrome extension to rate, review and summarize websites.
 4. **Context Query:** User will be able to ask information related to content on the webpage and it will be answered by GPT3.
 
 5. **Public Leaderboard:** A public leaderboard is maintained, data on the leaderboard in crowdsourced. Everyone will able to access top rated websites.
-
 
 > Made by Team **Paper Hat** for DotSlash 6.0

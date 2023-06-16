@@ -1,38 +1,38 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-*{
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
-html,body{
-  min-width:400px;
+html,
+body {
+  min-width: 400px;
   display: grid;
   height: 100%;
   place-items: center;
   text-align: center;
   background-color: #373636;
- 
 }
 
-.topbar{
-  padding-top:20px;
-  padding-left:20px;
-  padding-right:20px;
-  width:400px;
-  display:flex;
+.topbar {
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 400px;
+  display: flex;
   flex-direction: row;
-  color:white;  
+  color: white;
   border-top: 1px solid rgba(197, 197, 197, 0.201);
   /* color: rgba(255, 201, 54, 0.761); */
 }
 
-.container{
+.container {
   position: relative;
   width: 400px;
   padding-left: 10px;
   padding-right: 10px;
-  padding-top:10px;
+  padding-top: 10px;
   margin: 8px;
 
   border-radius: 5px;
@@ -42,16 +42,16 @@ html,body{
   flex-direction: column;
   border-top: 1px solid rgba(197, 197, 197, 0.308);
 }
-.container .post{
+.container .post {
   display: none;
 }
 
-.container .text{
+.container .text {
   font-size: 20px;
   color: #666;
   font-weight: 500;
 }
-.container .edit{
+.container .edit {
   position: absolute;
   right: 10px;
   top: 5px;
@@ -60,15 +60,15 @@ html,body{
   font-weight: 500;
   cursor: pointer;
 }
-.container .edit:hover{
-  color:#e2e0e0;
+.container .edit:hover {
+  color: #e2e0e0;
 }
 
-.container .star-widget input{
+.container .star-widget input {
   display: none;
 }
 
-.star-widget label{
+.star-widget label {
   font-size: 15px;
   color: #444;
   padding: 5px;
@@ -77,45 +77,45 @@ html,body{
   text-align: right;
 }
 
-.star-widget{
-  margin-bottom:10px;
+.star-widget {
+  margin-bottom: 10px;
 }
 
 input:not(:checked) ~ label:hover,
-input:not(:checked) ~ label:hover ~ label{
+input:not(:checked) ~ label:hover ~ label {
   color: #fd4;
 }
-input:checked ~ label{
+input:checked ~ label {
   color: #fd4;
 }
-input#rate-5:checked ~ label{
+input#rate-5:checked ~ label {
   color: #fe7;
   text-shadow: 0 0 20px #952;
 }
-#rate-1:checked ~ form header:before{
+#rate-1:checked ~ form header:before {
   content: "Waste";
 }
-#rate-2:checked ~ form header:before{
+#rate-2:checked ~ form header:before {
   content: "Dislike ";
 }
-#rate-3:checked ~ form header:before{
+#rate-3:checked ~ form header:before {
   content: "Good";
 }
-#rate-4:checked ~ form header:before{
+#rate-4:checked ~ form header:before {
   content: "Great";
 }
-#rate-5:checked ~ form header:before{
+#rate-5:checked ~ form header:before {
   content: "Awesome";
 }
-.container form{
-  display: none; 
+.container form {
+  display: none;
 }
 
-input:checked ~ form{
+input:checked ~ form {
   display: block;
 }
 
-form header{
+form header {
   width: 100%;
   font-size: 15px;
   color: #fe7;
@@ -124,12 +124,12 @@ form header{
   text-align: center;
   transition: all 0.2s ease;
 }
-form .textarea{
+form .textarea {
   /* height: 100px; */
   width: 100%;
   /* overflow: hidden; */
 }
-form .textarea textarea{
+form .textarea textarea {
   height: 100%;
   width: 100%;
   outline: none;
@@ -141,17 +141,17 @@ form .textarea textarea{
   resize: none;
 }
 
-.textarea textarea:focus{
+.textarea textarea:focus {
   border-color: #444;
 }
 
-form .btn{
+form .btn {
   height: 45px;
   width: 100%;
   margin: 15px 0;
 }
 
-form .btn button{
+form .btn button {
   height: 100%;
   width: 100%;
   border: 1px solid #444;
@@ -164,99 +164,102 @@ form .btn button{
   cursor: pointer;
   transition: all 0.3s ease;
 }
-form .btn button:hover{
+form .btn button:hover {
   background: #1b1b1b;
 }
 
-.review{
+.review {
   display: flex;
   justify-content: center;
-  flex-direction:column;
+  flex-direction: column;
 }
 
-.wordcloud{
-  padding-top:20px;
-  padding-left:10px;
-  padding-right:10px;
-  margin-bottom:10px;
-  width:100%;
-  display:flex;
+.wordcloud {
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
   flex-direction: column;
-  color:white;
+  color: white;
   border-top: 1px solid rgba(197, 197, 197, 0.308);
 }
 
-.tags{
+.tags {
   border: 1px solid grey;
   background-color: #999999ab;
-  color:rgb(255, 250, 250);
+  color: rgb(255, 250, 250);
   border-radius: 5px;
   padding: 0px 5px 0px 5px;
   margin-right: 2px;
 }
 
-.bottom{
-  padding:15px;
+.bottom {
+  padding: 15px;
   width: 100%;
-  color:rgb(145, 145, 145);
+  color: rgb(145, 145, 145);
   border-top: 1px solid rgba(128, 128, 128, 0.308);
-  background-color: #2a2a2a
+  background-color: #2a2a2a;
 }
 
-.Summary{
-
+.Summary {
   background-color: #272727;
-  width:360;
-  height:200;
-  padding:5px;
+  width: 360;
+  height: 200;
+  padding: 5px;
   /* display:block; */
   display: none;
-  float:left;
+  float: left;
   text-align: left;
-  overflow-y:hidden;
-  color:#c6c6c6;
+  overflow-y: hidden;
+  color: #c6c6c6;
 }
 
 .loader {
-  width:100%;
-  margin-top:5%;
-  margin-bottom:5%;
-  margin-left:40%;
+  width: 100%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 40%;
   border: 8px solid #f3f3f3; /* Light grey */
   border-top: 8px solid #dba934; /* Blue */
   border-radius: 50%;
   width: 60px;
   height: 60px;
   animation: spin 2s linear infinite;
-  display:none;
+  display: none;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.generate{
+.generate {
   border: 1px solid rgba(255, 255, 255, 0.794);
   /* border: 1px solid rgba(255, 255, 255, 0.712); */
   border-radius: 7px;
   background-color: rgb(211, 118, 48);
-  padding-left:7px;
-  padding-right:7px;
-  margin-left:40%;
+  padding-left: 7px;
+  padding-right: 7px;
+  margin-left: 40%;
 }
 
-.generate:hover{
+.generate:hover {
   border: 1px solid rgba(255, 255, 255, 0.794);
   border-radius: 7px;
   background-color: rgb(51, 51, 51);
-  padding-left:7px;
-  padding-right:7px;
-  margin-left:40%;
+  padding-left: 7px;
+  padding-right: 7px;
+  margin-left: 40%;
   color: white;
 }
 
-#textarea2{
+#textarea2 {
   height: 100%;
   width: 100%;
   outline: none;
@@ -268,15 +271,15 @@ form .btn button:hover{
   resize: none;
 }
 
-#Answer{
+#Answer {
   background-color: #272727;
-  width:360;
-  height:200;
-  padding:5px;
+  width: 360;
+  height: 200;
+  padding: 5px;
   /* display:block; */
   display: none;
-  float:left;
+  float: left;
   text-align: left;
-  overflow-y:hidden;
-  color:#c6c6c6;
+  overflow-y: hidden;
+  color: #c6c6c6;
 }
