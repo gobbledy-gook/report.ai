@@ -8,6 +8,8 @@ function logger(result) {
 
   const btn1 = document.querySelector("#generate_words");
   const btn2 = document.querySelector("#summary");
+  const btn3 = document.querySelector("#askbtn");
+  
   btn1.onclick = () => {
     // display the fetched word cloud
     for (let i = 0; i < 10; i++) {
@@ -57,6 +59,38 @@ function logger(result) {
       console.error("Error fetching summary:", error);
     }
   };
+
+  btn3.onclick = async () => {
+	try {
+	  const question = document.getElementById("ask").value;
+	  console.log("Question is :")
+	  console.log(question)
+	  const response = await fetch("http://127.0.0.1:5000/ask-question", {
+		method: "POST",
+		headers: {
+		  "Content-Type": "application/json",
+		  "Access-Control-Allow-Origin": "*",
+		  "Access-Control-Allow-Headers": "Content-Type,Authorization",
+		  "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+		},
+		// sending the question to the server
+		body: JSON.stringify(question),
+	  });
+  
+	  const json = await response.json();
+	  const answer = json.answer;
+  
+	  console.log("Answer: ", answer);
+	  // Update the UI with the received answer
+	  var answerDiv = document.getElementById("Answer");
+	  answerDiv.style.display = "block";
+	  answerDiv.innerHTML = answer;
+	  btn3.style.display = "none";
+	} catch (error) {
+	  console.error("Error fetching answer:", error);
+	}
+  };
+
 }
 
 function getRating(url) {

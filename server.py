@@ -104,21 +104,15 @@ def get_rating_():
 @app.route("/ask-question", methods=["POST"])
 def ask():
     """Question handler"""
-    req_data = request.get_json()
-    text_data = req_data["quest"]
-    # text_summ = req_data['summary']
-
+    text_data = request.get_json()
     # Add CORS headers to the response
     response = jsonify({"status": "success"})
     response.headers.add("Access-Control-Allow-Origin", "*")
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
     response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
 
-    print(GPT_ask(text_data))
     response = jsonify({"answer": GPT_ask(text_data)})
-    print(response)
     return response
-
 
 @app.route("/top_ratings")
 def top_ratings():
