@@ -66,8 +66,8 @@ def ask_qna(text):
     data = query(
         {
             "inputs": {
-                "question": text,
-                "context": "My name is Clara and I live in Berkeley.",
+                "question": text["question"],
+                "context": text["context"],
             }
         }
     )
