@@ -30,12 +30,12 @@ ratings_collection = client["report"]["rating"]
 
 def summarizer(text):
     """summarizer function"""
-    API_URL_SUM = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+    api_url_summarizer = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
 
     def query(payload):
         data = json.dumps(payload)
         response = requests.request(
-            "POST", API_URL_SUM, headers=headers, data=data, timeout=10
+            "POST", api_url_summarizer, headers=headers, data=data, timeout=10
         )
         return json.loads(response.content.decode("utf-8"))
 
@@ -51,7 +51,7 @@ def summarizer(text):
 
 def ask_qna(text):
     """Question answer handler"""
-    API_URL_QNA = (
+    api_url_qna = (
         "https://api-inference.huggingface.co/models/deepset/roberta-base-squad2"
     )
     print(text)
@@ -59,7 +59,7 @@ def ask_qna(text):
     def query(payload):
         data = json.dumps(payload)
         response = requests.request(
-            "POST", API_URL_QNA, headers=headers, data=data, timeout=10
+            "POST", api_url_qna, headers=headers, data=data, timeout=10
         )
         return json.loads(response.content.decode("utf-8"))
 
