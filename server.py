@@ -1,16 +1,21 @@
+"""
+Backend server for the report.Ai extension
+"""
+
+# pylint: disable=E0401
 import os
-import openai
 import json
 from flask_cors import CORS
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from bson.json_util import dumps
-import time
 import requests
+import openai
 
-# from transformers 
-# import GPTNeoForCausalLM, GPT2Tokenizer 
+
+# from transformers
+# import GPTNeoForCausalLM, GPT2Tokenizer
 
 # model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B")
 # tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B")
@@ -35,28 +40,29 @@ ratings_collection = client["report"]["rating"]
 print(ratings_collection)
 
 
-API_URL_Sum = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-API_URL_Qna = "https://api-inference.huggingface.co/models/deepset/roberta-base-squad2"
+API_URL_SUM = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+API_URL_QNA = "https://api-inference.huggingface.co/models/deepset/roberta-base-squad2"
 headers = {"Authorization": gpt_neo_key}
-
 
 
 def openai_summarizer(text):
     """summarizer function"""
-    prompt = f"summarize the following text in paragraphs:\n{text}"
+
     def query(payload):
         data = json.dumps(payload)
-        response = requests.request("POST", API_URL_Sum, headers=headers, data=data)
+        response = requests.request(
+            "POST", API_URL_SUM, headers=headers, data=data, timeout=10
+        )
         return json.loads(response.content.decode("utf-8"))
-        
+
     output = query(
-    {
-        "inputs": text,
-        "parameters": {"do_sample": False},
-    }
-)
+        {
+            "inputs": text,
+            "parameters": {"do_sample": False},
+        }
+    )
     print(output)
-    return output[0]['summary_text']
+    return output[0]["summary_text"]
     # input_ids = tokenizer(prompt, return_tensors="pt").input_ids
     # response = openai.Completion.create(
     #     engine="curie",
@@ -78,12 +84,13 @@ def openai_summarizer(text):
     # return summary
 
 
-def GPT_ask(text):
+def gpt_ask(text):
     """Ask Question feature implementation"""
-    prompt = f"""write regarding, {text}, in the context of previous text."""
+    # prompt = f"""write regarding, {text}, in the context of previous text."""
+    print("use of gpt_ask() is deprecated")
     # def query(payload):
     #     data = json.dumps(payload)
-    #     response = requests.request("POST", API_URL_Qna, headers=headers, data=data)
+    #     response = requests.request("POST", API_URL_QNA, headers=headers, data=data)
     #     return json.loads(response.content.decode("utf-8"))
     # data = query(
     #     {
@@ -102,7 +109,7 @@ def GPT_ask(text):
     # )
     # answer = response.choices[0].text.strip()
     # return answer
-    return "Non-Functional"
+    return text
 
 
 @app.route("/summarize", methods=["POST"])
@@ -117,7 +124,7 @@ def summarize():
     response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
     summary = openai_summarizer(text_data[:499])
     # summary = "Hello this is a test summary"
-    
+
     response = jsonify({"summary": summary})
     # print(response)
     return response
@@ -166,8 +173,9 @@ def ask():
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
     response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
 
-    response = jsonify({"answer": GPT_ask(text_data)})
+    response = jsonify({"answer": gpt_ask(text_data)})
     return response
+
 
 @app.route("/top_ratings")
 def top_ratings():
