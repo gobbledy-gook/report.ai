@@ -21,4 +21,14 @@ A chrome extension to rate, review and summarize websites.
 
 5. **Public Leaderboard:** A public leaderboard is maintained, data on the leaderboard in crowdsourced. Everyone will able to access top rated websites.
 
+## **Installation**
+
+1. Clone the repository on your local machine using -
+```c++
+git clone https://github.com/gobbledy-gook/report.ai.git
+```
+2. Once cloned, run ```server.py```, on your machine.
+3. In Google Chrome, go to ```chrome://extensions```. Click on ```Load Unpacked```, and select the cloned repository from your computer.
+4. Now have fun trying out the **report.ai** extension. 
+
 > Made by Team **Paper Hat** for DotSlash 6.0
