@@ -18,33 +18,34 @@ load_dotenv()
 app = Flask(__name__)
 cors = CORS(app)
 
-mongo_url = os.environ.get("MONGO_URL")
-gpt_neo_key = os.environ.get("GPTNEO")
-headers = {"Authorization": gpt_neo_key}
-
-def test_mongo(mongo_url):
+def test_mongo(url):
     """
     Test the Mongo URL
     Add MONGO_URL in your environment variable:
     Format: mongodb+srv://{username}:{password}@cluster0.dsdb23w.mongodb.net/
     """
-    pattern = r'^mongodb\+srv:\/\/[\w.-]+:[\w.-]+@[\w.-]+\/$'
-    match = re.match(pattern, mongo_url)
+    pattern = r"^mongodb\+srv:\/\/[\w.-]+:[\w.-]+@[\w.-]+\/$"
+    match = re.match(pattern, url)
 
     if match:
-        return True
+        return url
 
     print("Mongo URL not valid")
-    raise ValueError('URL is not valid')
+    raise ValueError("URL is not valid")
 
-test_mongo(mongo_url)
+mongo_url = test_mongo(os.environ.get("MONGO_URL"))
+gpt_neo_key = os.environ.get("GPTNEO")
+headers = {"Authorization": gpt_neo_key}
 
 client = MongoClient(mongo_url)
 ratings_collection = client["report"]["rating"]
 
+
 def summarizer(text):
     """summarizer function"""
-    api_url_summarizer = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+    api_url_summarizer = (
+        "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+    )
 
     def query(payload):
         data = json.dumps(payload)
