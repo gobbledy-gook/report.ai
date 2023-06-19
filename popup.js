@@ -34,6 +34,7 @@ function logger(result) {
 
   btn2.onclick = async () => {
     // fetching the summary from server
+    // alert("Loading...");
     try {
       const response = await fetch("http://127.0.0.1:5000/summarize", {
         method: "POST",
@@ -46,11 +47,8 @@ function logger(result) {
         // sending text to summarize
         body: JSON.stringify(result.key.text),
       });
-
       const json = await response.json();
       const summary = json.summary;
-
-      console.log("Summary: ", summary);
       var divSum = document.getElementById("summarizerDiv");
       divSum.style.display = "block";
       divSum.innerHTML = summary;
