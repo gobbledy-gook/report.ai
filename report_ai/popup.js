@@ -35,6 +35,9 @@ function logger(result) {
   btn2.onclick = async () => {
     // fetching the summary from server
     // alert("Loading...");
+    var divSum = document.getElementById("summarizerDiv");
+    divSum.innerHTML = "<img src = 'report_ai/loading.gif'>";
+    divSum.style.display = "block";
     try {
       const response = await fetch("http://127.0.0.1:5000/summarize", {
         method: "POST",
@@ -49,8 +52,7 @@ function logger(result) {
       });
       const json = await response.json();
       const summary = json.summary;
-      var divSum = document.getElementById("summarizerDiv");
-      divSum.style.display = "block";
+      divSum.removeChild();
       divSum.innerHTML = summary;
       btn2.style.display = "none";
     } catch (error) {
