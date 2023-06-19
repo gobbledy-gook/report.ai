@@ -76,7 +76,7 @@ function logger(result) {
 	  });
   
 	  const json = await response.json();
-	  const answer = json.answer;
+	  const answer = json.answer.answer;
   
 	  console.log("Answer: ", answer);
 	  // Update the UI with the received answer
