@@ -1,10 +1,19 @@
 import os
 import openai
+import json
 from flask_cors import CORS
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from bson.json_util import dumps
+import time
+import requests
+
+# from transformers 
+# import GPTNeoForCausalLM, GPT2Tokenizer 
+
+# model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B")
+# tokenizer = GPT2Tokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B")
 
 
 load_dotenv()
@@ -13,6 +22,7 @@ cors = CORS(app)
 
 
 api_key = os.environ.get("API_KEY")
+gpt_neo_key = os.environ.get("GPTNEO")
 mongo_pass = os.environ.get("MONGO")
 openai.api_key = api_key
 
@@ -25,46 +35,91 @@ ratings_collection = client["report"]["rating"]
 print(ratings_collection)
 
 
+API_URL_Sum = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+API_URL_Qna = "https://api-inference.huggingface.co/models/deepset/roberta-base-squad2"
+headers = {"Authorization": gpt_neo_key}
+
+
+
 def openai_summarizer(text):
     """summarizer function"""
     prompt = f"summarize the following text in paragraphs:\n{text}"
-    response = openai.Completion.create(
-        engine="curie",
-        prompt=prompt,
-        max_tokens=300,  # adjust to control length of summary
-        n=1,
-        stop=None,
-        temperature=0.5,  # adjust to control creativity of summary
-    )
-    summary = response.choices[0].text.strip()
-    return summary
+    def query(payload):
+        data = json.dumps(payload)
+        response = requests.request("POST", API_URL_Sum, headers=headers, data=data)
+        return json.loads(response.content.decode("utf-8"))
+        
+    output = query(
+    {
+        "inputs": text,
+        "parameters": {"do_sample": False},
+    }
+)
+    print(output)
+    return output[0]['summary_text']
+    # input_ids = tokenizer(prompt, return_tensors="pt").input_ids
+    # response = openai.Completion.create(
+    #     engine="curie",
+    #     prompt=prompt,
+    #     max_tokens=300,  # adjust to control length of summary
+    #     n=1,
+    #     stop=None,
+    #     temperature=0.5,  # adjust to control creativity of summary
+    # )
+    # gen_tokens = model.generate(
+    #         input_ids,
+    #         do_sample=True,
+    #         temperature=0.7,
+    #         max_length=500,
+    # )
+    # gen_text = tokenizer.batch_decode(gen_tokens)[0]
+    # return gen_text
+    # summary = response.choices[0].text.strip()
+    # return summary
 
 
 def GPT_ask(text):
     """Ask Question feature implementation"""
     prompt = f"""write regarding, {text}, in the context of previous text."""
-    response = openai.Completion.create(
-        engine="curie",
-        prompt=prompt,
-        max_tokens=100,  # adjust to control length of summary
-        n=1,
-        temperature=0.5,  # adjust to control creativity of summary
-    )
-    answer = response.choices[0].text.strip()
-    return answer
+    # def query(payload):
+    #     data = json.dumps(payload)
+    #     response = requests.request("POST", API_URL_Qna, headers=headers, data=data)
+    #     return json.loads(response.content.decode("utf-8"))
+    # data = query(
+    #     {
+    #         "inputs": {
+    #             "question": "What's my name?",
+    #             "context": "My name is Clara and I live in Berkeley.",
+    #         }
+    #     }
+    # )
+    # response = openai.Completion.create(
+    #     engine="curie",
+    #     prompt=prompt,
+    #     max_tokens=100,  # adjust to control length of summary
+    #     n=1,
+    #     temperature=0.5,  # adjust to control creativity of summary
+    # )
+    # answer = response.choices[0].text.strip()
+    # return answer
+    return "Non-Functional"
 
 
 @app.route("/summarize", methods=["POST"])
 def summarize():
     """Summarizer"""
     text_data = request.get_json()
-
+    print(text_data)
     # Adding CORS headers to the response
     response = jsonify({"status": "success"})
     response.headers.add("Access-Control-Allow-Origin", "*")
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
     response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS")
-    response = jsonify({"summary": openai_summarizer(text_data)})
+    summary = openai_summarizer(text_data[:499])
+    # summary = "Hello this is a test summary"
+    
+    response = jsonify({"summary": summary})
+    # print(response)
     return response
 
 
