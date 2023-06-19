@@ -30,3 +30,6 @@ test.db
 # Miscellaneous
 *.swp
 .DS_Store
+
+# secret keys
+report_ai.pem
