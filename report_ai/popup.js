@@ -9,6 +9,7 @@ function logger(result) {
   const btn1 = document.querySelector("#generate_words");
   const btn2 = document.querySelector("#summary");
   const btn3 = document.querySelector("#askbtn");
+  const btn4 = document.querySelector("#refreshBtn");
   
   btn1.onclick = () => {
     // display the fetched word cloud
@@ -97,6 +98,12 @@ function logger(result) {
 	  console.error("Error fetching answer:", error);
 	}
   };
+
+  btn4.onclick = () =>{
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.reload(tabs[0].id);
+    });
+  }
 
 }
 
