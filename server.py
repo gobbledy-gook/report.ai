@@ -18,6 +18,7 @@ load_dotenv()
 app = Flask(__name__)
 cors = CORS(app)
 
+
 def test_mongo(url):
     """
     Test the Mongo URL
@@ -32,6 +33,7 @@ def test_mongo(url):
 
     print("Mongo URL not valid")
     raise ValueError("URL is not valid")
+
 
 mongo_url = test_mongo(os.environ.get("MONGO_URL"))
 gpt_neo_key = os.environ.get("GPTNEO")
