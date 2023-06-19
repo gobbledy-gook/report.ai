@@ -60,9 +60,10 @@ function logger(result) {
 
   btn3.onclick = async () => {
 	try {
-	  const question = document.getElementById("ask").value;
-	  console.log("Question is :")
-	  console.log(question)
+    const question = {
+      question: document.getElementById("ask").value,
+      context: result.key.text,
+    };
 	  const response = await fetch("http://127.0.0.1:5000/ask-question", {
 		method: "POST",
 		headers: {
@@ -76,14 +77,13 @@ function logger(result) {
 	  });
   
 	  const json = await response.json();
-	  const answer = json.answer;
+	  const answer = json.answer.answer;
   
 	  console.log("Answer: ", answer);
 	  // Update the UI with the received answer
 	  var answerDiv = document.getElementById("Answer");
 	  answerDiv.style.display = "block";
 	  answerDiv.innerHTML = answer;
-	  btn3.style.display = "none";
 	} catch (error) {
 	  console.error("Error fetching answer:", error);
 	}
