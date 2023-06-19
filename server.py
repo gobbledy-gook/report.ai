@@ -5,7 +5,6 @@ Backend server for the report.Ai extension
 # pylint: disable=E0401
 import os
 import json
-import re
 from flask_cors import CORS
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
@@ -19,35 +18,19 @@ app = Flask(__name__)
 cors = CORS(app)
 
 
-def test_mongo(url):
-    """
-    Test the Mongo URL
-    Add MONGO_URL in your environment variable:
-    Format: mongodb+srv://{username}:{password}@cluster0.dsdb23w.mongodb.net/
-    """
-    pattern = r"^mongodb\+srv:\/\/[\w.-]+:[\w.-]+@[\w.-]+\/$"
-    match = re.match(pattern, url)
-
-    if match:
-        return url
-
-    print("Mongo URL not valid")
-    raise ValueError("URL is not valid")
-
-
-mongo_url = test_mongo(os.environ.get("MONGO_URL"))
 gpt_neo_key = os.environ.get("GPTNEO")
+mongo_pass = os.environ.get("MONGO")
+
+mongo_uri = "mongodb+srv://mohdansah10:" + mongo_pass + "@cluster0.dsdb23w.mongodb.net/"
 headers = {"Authorization": gpt_neo_key}
 
-client = MongoClient(mongo_url)
+client = MongoClient(mongo_uri)
 ratings_collection = client["report"]["rating"]
 
 
 def summarizer(text):
     """summarizer function"""
-    api_url_summarizer = (
-        "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
-    )
+    api_url_summarizer = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
 
     def query(payload):
         data = json.dumps(payload)
