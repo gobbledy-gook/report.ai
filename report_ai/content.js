@@ -1,5 +1,5 @@
 var theText;
-var to_select = ["p", "h1", "h2", "h3", "h5", "h6"]; //tags to extract texts from
+var to_select = ["p", "h1", "h2", "h3", "h5", "h6", "li"]; //tags to extract texts from
 
 // extracting the data
 to_select.forEach((t) => {
