@@ -35,9 +35,14 @@ function logger(result) {
   btn2.onclick = async () => {
     // fetching the summary from server
     // alert("Loading...");
-    var divSum = document.getElementById("summarizerDiv");
-    divSum.innerHTML = "<img src = 'report_ai/loading.gif'>";
-    divSum.style.display = "block";
+    var Parent = document.getElementById("SummaryParent");
+    var gifParent = document.getElementById("loader");
+    gifParent.style.display = "flex";
+    let gif = document.createElement("img");
+    gif.src = "rotate-right.png";
+    gif.style.animation = "spin 1.5s linear infinite";
+    gif.style.width = "6%";
+    gifParent.appendChild(gif);
     try {
       const response = await fetch("http://127.0.0.1:5000/summarize", {
         method: "POST",
@@ -51,9 +56,11 @@ function logger(result) {
         body: JSON.stringify(result.key.text),
       });
       const json = await response.json();
+      var divSum = document.getElementById("summarizerDiv")
       const summary = json.summary;
-      divSum.removeChild();
       divSum.innerHTML = summary;
+      Parent.removeChild(gifParent);
+      divSum.style.display = "block";
       btn2.style.display = "none";
     } catch (error) {
       console.error("Error fetching summary:", error);
