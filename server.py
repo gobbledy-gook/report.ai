@@ -28,7 +28,9 @@ ratings_collection = client["report"]["rating"]
 
 def summarizer(text):
     """summarizer function"""
-    api_url_summarizer = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+    api_url_summarizer = (
+        "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+    )
 
     def query(payload):
         data = json.dumps(payload)
@@ -144,6 +146,7 @@ def top_ratings():
 
     response = {"top": tops_list}
     return jsonify(response)
+
 
 @app.route("/")
 def home():
