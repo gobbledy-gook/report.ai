@@ -13,7 +13,7 @@ from bson.json_util import dumps
 import requests
 
 
-load_dotenv()
+load_dotenv(".env")
 app = Flask(__name__)
 cors = CORS(app)
 
@@ -147,6 +147,10 @@ def top_ratings():
     response = {"top": tops_list}
     return jsonify(response)
 
+@app.route("/")
+def home():
+    """Home page"""
+    return "Server is working, //[REPORT.AI]"
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
