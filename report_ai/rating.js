@@ -53,7 +53,7 @@ function logger(result) {
 
 function askQuestion(question) {
   let data = { quest: question };
-  fetch("http://127.0.0.1:5000/ask-question", {
+  fetch("https://report-ai.onrender.com/ask-question", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -75,7 +75,7 @@ function askQuestion(question) {
 function saveEntry(rating, url) {
   let data = { rating: rating, url: url };
   console.log(data);
-  fetch("http://127.0.0.1:5000/save_entry", {
+  fetch("https://report-ai.onrender.com/save_entry", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
