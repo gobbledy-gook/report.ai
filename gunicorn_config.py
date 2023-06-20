@@ -1,13 +1,10 @@
-# gunicorn_config.py
+"""
+gunicorn configuration file
+"""
 
-# Number of worker processes
+# pylint: disable=C0103
+
 workers = 4
-
-# Bind address
 bind = "0.0.0.0:8000"
-
-# Timeout for handling requests
 timeout = 120
-
-# Log level
 loglevel = "info"

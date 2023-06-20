@@ -7,6 +7,14 @@
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/gobbledy-gook/report.ai/blob/main/LICENSE)
 [![Code style: Black](https://img.shields.io/badge/Code%20style-Black-000.svg)](https://github.com/psf/black)
 
+---
+
+## Deployment Branch
+
+## When pushing to this branch, please make sure that code are deployment safe and everything is linked to "https://report-ai.onrender.com/" and removed all the links from development
+
+---
+
 ## **Installation**
 
 1. Clone the repository on your local machine using -
