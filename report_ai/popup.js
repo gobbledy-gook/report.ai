@@ -45,7 +45,7 @@ function logger(result) {
     gif.style.width = "6%";
     gifParent.appendChild(gif);
     try {
-      const response = await fetch("http://127.0.0.1:5000/summarize", {
+      const response = await fetch("https://report-ai.onrender.com/summarize", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ function logger(result) {
       question: document.getElementById("ask").value,
       context: result.key.text,
     };
-	  const response = await fetch("http://127.0.0.1:5000/ask-question", {
+	  const response = await fetch("https://report-ai.onrender.com/ask-question", {
 		method: "POST",
 		headers: {
 		  "Content-Type": "application/json",
@@ -110,7 +110,7 @@ function logger(result) {
 function getRating(url) {
   // get rating through API
   let data = { url: url };
-  fetch("http://127.0.0.1:5000/get_rating", {
+  fetch("https://report-ai.onrender.com/get_rating", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -6,7 +6,7 @@
   "browser_action": {
     "default_popup": "index.html"
   },
-  "permissions": ["storage", "http://127.0.0.1:5000/*", "background", "tabs"],
+  "permissions": ["storage", "https://report-ai.onrender.com/*", "background", "tabs"],
   "background": {
     "scripts": ["./background.js", "./popup.js"],
     "persistent": false
