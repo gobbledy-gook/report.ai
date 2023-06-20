@@ -1,0 +1,42 @@
+name: Deployment Checks
+
+on:
+  push:
+    branches:
+      - deploy
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ["3.8", "3.9", "3.10"]
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run code checks
+        run: |
+          pip install black
+          black --check
+
+      - name: Verify code doesn't contain local development references
+        run: |
+          if grep -r "127.0.0.1" .; then
+            echo "Error: Code contains references to local development (127.0.0.1)"
+            exit 1
+          fi
+
+      - name: Validate Gunicorn configuration
+		run: |
+			gunicorn -c gunicorn_config.py server:app
+		env:
+			ENV_VAR1: ${{ secrets.ENV_VAR1 }}
