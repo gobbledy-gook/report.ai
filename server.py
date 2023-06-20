@@ -6,16 +6,14 @@ Backend server for the report.Ai extension
 import os
 import json
 from flask_cors import CORS
-from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from bson.json_util import dumps
 import requests
 
 
-load_dotenv()
 app = Flask(__name__)
-cors = CORS(app)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 gpt_neo_key = os.environ.get("GPTNEO")
@@ -147,6 +145,11 @@ def top_ratings():
     response = {"top": tops_list}
     return jsonify(response)
 
+@app.route("/")
+def home():
+    """Home page"""
+    return "Server is working, //[REPORT.AI]"
+
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
