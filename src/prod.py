@@ -3,6 +3,7 @@ Backend server for the report.Ai extension
 """
 
 # pylint: disable=E0401
+# pylint: disable=R0801
 import os
 import json
 from flask_cors import CORS
