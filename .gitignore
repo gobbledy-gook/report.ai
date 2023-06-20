@@ -33,4 +33,3 @@ test.db
 
 # secret keys
 report_ai.pem
-dev.sh
