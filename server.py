@@ -12,7 +12,6 @@ from bson.json_util import dumps
 import requests
 
 
-load_dotenv(".env")
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
