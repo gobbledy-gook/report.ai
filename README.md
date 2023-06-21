@@ -55,6 +55,16 @@ python3 server.py
 5. **Public Leaderboard:** A public leaderboard is maintained, data on the leaderboard in crowdsourced. Everyone will able to access top rated websites.
 
 ---
+### Release 0.0.3 Glimpse
+
+<div>
+  <img align = "right" src = "https://github.com/gobbledy-gook/report.ai/assets/96362727/de29b848-00d5-49f2-93e4-7f82290b506a.png" width = "30%">
+<span>This design was implemented for DotSlash 6.0. We are looking forward to make it robust and refine it further.</span>
+</div>
+
+
+
+---
 
 ### How to Give Feedback
 
