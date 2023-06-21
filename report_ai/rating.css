@@ -288,7 +288,7 @@ form .btn button:hover {
   border-radius: 100%; 
   background-color: rgb(45, 246, 31); 
   height: 20%;
-  margin-left:66%;
+  margin-left:68%;
   margin-right:10%;
   margin-bottom:5%;
   /* margin-top: 10%; 
@@ -303,8 +303,8 @@ form .btn button:hover {
   margin-top:10%;
   border-radius: 10%;
   color:#dbdbdb;
-  border: 1px solid #00000000;
-  background-color: #00000000;
+  border: 1px solid #b3b3b3d7;
+  background-color: #818080;
 }
 
 #refreshBtn:hover{
@@ -314,7 +314,7 @@ form .btn button:hover {
   margin-right:10%;
   margin-top:10%;
   border-radius: 10%;
-  color:#efd10b;
+  color:#232323;
   border: 1px solid #00000000;
-  background-color: #1a1a1a;
+  background-color: #dadada;
 }
