@@ -180,14 +180,17 @@ function performHealthCheck() {
     .then((response) => {
       if (response.ok) {
         document.querySelector('#connectionSignal').style.backgroundColor = 'green';
+        document.querySelector('#connectionSignal').title = 'Server is Running';
         console.log('Server is healthy');
       } else {
         document.querySelector('#connectionSignal').style.backgroundColor = 'red';
+        document.querySelector('#connectionSignal').title = 'Server is unavailable';
         console.log('Server is not healthy');
       }
     })
     .catch((error) => {
       document.querySelector('#connectionSignal').style.backgroundColor = 'red';
+      document.querySelector('#connectionSignal').title = 'Server is unavailable';
       console.log('Error occurred while checking server health: ' + error);
     });
 }
