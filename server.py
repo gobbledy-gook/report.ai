@@ -152,5 +152,10 @@ def home():
     """Home page"""
     return "Server is working, //[REPORT.AI]"
 
+@app.route("/healthcheck")
+def health_check():
+    """Health check route"""
+    return "OK", 200
+
 if __name__ == "__main__":
     app.run(debug=True)
