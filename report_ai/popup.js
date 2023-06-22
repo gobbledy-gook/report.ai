@@ -57,6 +57,7 @@ function logger(result) {
   btn2.onclick = async () => {
     // fetching the summary from server
     // alert("Loading...");
+    btn2.style.display = "none";
     var Parent = document.getElementById("SummaryParent");
     var gifParent = document.getElementById("loader");
     gifParent.style.display = "flex";
@@ -83,7 +84,6 @@ function logger(result) {
       divSum.innerHTML = summary;
       Parent.removeChild(gifParent);
       divSum.style.display = "block";
-      btn2.style.display = "none";
     } catch (error) {
       console.error("Error fetching summary:", error);
     }
