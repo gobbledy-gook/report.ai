@@ -11,7 +11,7 @@ function logger(result) {
   const btn2 = document.querySelector("#summary");
   const btn3 = document.querySelector("#askbtn");
   const btn4 = document.querySelector("#refreshBtn");
-  
+
   btn0.onclick = () => {
     var review = document.getElementById("review").value;
     var b1 = document.getElementsByClassName("radiobutton");
@@ -28,7 +28,7 @@ function logger(result) {
     }
     btn0.style.backgroundColor = "white";
     btn0.style.color = "#111";
-  
+
     console.log("Review :", review);
   };
 
@@ -90,38 +90,38 @@ function logger(result) {
   };
 
   btn3.onclick = async () => {
-	try {
-    const question = {
-      question: document.getElementById("ask").value,
-      context: result.key.text,
-    };
-	  const response = await fetch("http://127.0.0.1:5000/ask-question", {
-		method: "POST",
-		headers: {
-		  "Content-Type": "application/json",
-		  "Access-Control-Allow-Origin": "*",
-		  "Access-Control-Allow-Headers": "Content-Type,Authorization",
-		  "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
-		},
-		// sending the question to the server
-		body: JSON.stringify(question),
-	  });
-  
-	  const json = await response.json();
-	  const answer = json.answer.answer;
-  
-	  console.log("Answer: ", answer);
-	  // Update the UI with the received answer
-	  var answerDiv = document.getElementById("Answer");
-	  answerDiv.style.display = "block";
-	  answerDiv.innerHTML = answer;
-	} catch (error) {
-	  console.error("Error fetching answer:", error);
-	}
+    try {
+      const question = {
+        question: document.getElementById("ask").value,
+        context: result.key.text,
+      };
+      const response = await fetch("http://127.0.0.1:5000/ask-question", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Headers": "Content-Type,Authorization",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+        },
+        // sending the question to the server
+        body: JSON.stringify(question),
+      });
+
+      const json = await response.json();
+      const answer = json.answer.answer;
+
+      console.log("Answer: ", answer);
+      // Update the UI with the received answer
+      var answerDiv = document.getElementById("Answer");
+      answerDiv.style.display = "block";
+      answerDiv.innerHTML = answer;
+    } catch (error) {
+      console.error("Error fetching answer:", error);
+    }
   };
 
-  btn4.onclick = () =>{
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  btn4.onclick = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.tabs.reload(tabs[0].id);
       location.reload();
     });
@@ -148,7 +148,7 @@ function getRating(url) {
       console.log(rating.toFixed(2));
       document.getElementById("overallRating").innerHTML = rating.toFixed(2);
     })
-    .catch((error) => {});
+    .catch((error) => { });
 }
 
 function saveEntry(rating, url) {
@@ -171,8 +171,24 @@ function saveEntry(rating, url) {
     .then((json) => {
       console.log("Response JSON:", json);
     })
-    .catch((error) => {});
+    .catch((error) => { });
 }
 
 // fetching the local data and calling the logger
 chrome.storage.local.get(["key"], logger);
+
+function checkConnectionSignal() {
+  // check if the server is running
+  fetch("http://127.0.0.1:5000/healthcheck")
+    .then((response) => {
+      if (response.status === 200) {
+        document.getElementById("connectionSignal").style.backgroundColor = "rgb(45, 246, 31)";
+      }
+    })
+    .catch((error) => {
+      document.getElementById("connectionSignal").style.backgroundColor = "rgb(209, 0, 31)";
+    });
+}
+
+checkConnectionSignal();
+setInterval(checkConnectionSignal, 30000);
