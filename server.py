@@ -1,28 +1,36 @@
 """
 Backend server for the report.Ai extension
+
+Make sure that you've added your cluster access in the environment
+mongodb+srv://<username>:<password>@cluster0.dsdb23w.mongodb.net/
 """
 
 # pylint: disable=E0401
+# pylint: disable=W0718
 import os
 import json
 from flask_cors import CORS
-from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
+from pymongo.server_api import ServerApi
 from bson.json_util import dumps
 import requests
 
 
-load_dotenv(".env")
 app = Flask(__name__)
 cors = CORS(app)
 
 
-gpt_neo_key = os.environ.get("GPTNEO")
-mongo_pass = os.environ.get("MONGO")
-
-mongo_uri = "mongodb+srv://mohdansah10:" + mongo_pass + "@cluster0.dsdb23w.mongodb.net/"
+gpt_neo_key = os.environ.get("GPTNEO", None)
+mongo_uri = os.environ.get("MONGO", "mongodb+srv://admin:admin@reportai.ks0reyi.mongodb.net/")
 headers = {"Authorization": gpt_neo_key}
+
+client = MongoClient(mongo_uri, server_api=ServerApi("1"))
+try:
+    client.admin.command("ping")
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
 
 client = MongoClient(mongo_uri)
 ratings_collection = client["report"]["rating"]
@@ -30,7 +38,9 @@ ratings_collection = client["report"]["rating"]
 
 def summarizer(text):
     """summarizer function"""
-    api_url_summarizer = "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+    api_url_summarizer = (
+        "https://api-inference.huggingface.co/models/facebook/bart-large-cnn"
+    )
 
     def query(payload):
         data = json.dumps(payload)
@@ -147,15 +157,18 @@ def top_ratings():
     response = {"top": tops_list}
     return jsonify(response)
 
+
 @app.route("/")
 def home():
     """Home page"""
     return "Server is working, //[REPORT.AI]"
 
+
 @app.route("/healthcheck")
 def health_check():
     """Health check route"""
     return "OK", 200
+
 
 if __name__ == "__main__":
     app.run(debug=True)
