@@ -10,7 +10,6 @@ mongodb+srv://<username>:<password>@cluster0.dsdb23w.mongodb.net/
 import os
 import json
 from flask_cors import CORS
-from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
@@ -18,17 +17,15 @@ from bson.json_util import dumps
 import requests
 
 
-load_dotenv(".env")
 app = Flask(__name__)
 cors = CORS(app)
 
 
-gpt_neo_key = os.environ.get("GPTNEO")
-mongo_uri = os.environ.get("MONGO")
+gpt_neo_key = os.environ.get("GPTNEO", None)
+mongo_uri = os.environ.get("MONGO", "mongodb+srv://admin:admin@reportai.ks0reyi.mongodb.net/")
 headers = {"Authorization": gpt_neo_key}
 
 client = MongoClient(mongo_uri, server_api=ServerApi("1"))
-# Send a ping to confirm a successful connection
 try:
     client.admin.command("ping")
     print("Pinged your deployment. You successfully connected to MongoDB!")
