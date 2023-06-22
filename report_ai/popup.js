@@ -174,5 +174,27 @@ function saveEntry(rating, url) {
     .catch((error) => {});
 }
 
+function performHealthCheck() {
+  // Send a request to "localhost:5000/healthcheck"
+  fetch('http://localhost:5000/healthcheck')
+    .then((response) => {
+      if (response.ok) {
+        document.querySelector('#connectionSignal').style.backgroundColor = 'green';
+        console.log('Server is healthy');
+      } else {
+        document.querySelector('#connectionSignal').style.backgroundColor = 'red';
+        console.log('Server is not healthy');
+      }
+    })
+    .catch((error) => {
+      document.querySelector('#connectionSignal').style.backgroundColor = 'red';
+      console.log('Error occurred while checking server health: ' + error);
+    });
+}
+
+performHealthCheck();
+
+setInterval(performHealthCheck, 30000);
+
 // fetching the local data and calling the logger
 chrome.storage.local.get(["key"], logger);
