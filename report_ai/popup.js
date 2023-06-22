@@ -123,6 +123,7 @@ function logger(result) {
   btn4.onclick = () =>{
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       chrome.tabs.reload(tabs[0].id);
+      location.reload();
     });
   }
 
