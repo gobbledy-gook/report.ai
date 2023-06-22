@@ -6,11 +6,32 @@ function logger(result) {
     getRating(currentUrl);
   });
 
+  const btn0 = document.querySelector("#save_rating");
   const btn1 = document.querySelector("#generate_words");
   const btn2 = document.querySelector("#summary");
   const btn3 = document.querySelector("#askbtn");
   const btn4 = document.querySelector("#refreshBtn");
   
+  btn0.onclick = () => {
+    var review = document.getElementById("review").value;
+    var b1 = document.getElementsByClassName("radiobutton");
+    for (let i = 0; i < 5; i++) {
+      if (b1[i].checked) {
+        console.log(5 - i);
+        rating = 5 - i;
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+          var currentUrl = tabs[0].url;
+          console.log("Current URL : " + currentUrl); // removed unnecessary "str" call
+          saveEntry(rating, currentUrl);
+        });
+      }
+    }
+    btn0.style.backgroundColor = "white";
+    btn0.style.color = "#111";
+  
+    console.log("Review :", review);
+  };
+
   btn1.onclick = () => {
     // display the fetched word cloud
     for (let i = 0; i < 10; i++) {
@@ -125,6 +146,29 @@ function getRating(url) {
       var rating = json.rating;
       console.log(rating.toFixed(2));
       document.getElementById("overallRating").innerHTML = rating.toFixed(2);
+    })
+    .catch((error) => {});
+}
+
+function saveEntry(rating, url) {
+  let data = { rating: rating, url: url };
+  console.log(data);
+  fetch("http://127.0.0.1:5000/save_entry", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Content-Type,Authorization",
+      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,OPTIONS",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => {
+      // console.log("Request complete! response:", res);
+      return res.json(); // return the Promise from res.json()
+    })
+    .then((json) => {
+      console.log("Response JSON:", json);
     })
     .catch((error) => {});
 }
