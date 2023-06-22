@@ -9,6 +9,7 @@ import json
 from flask_cors import CORS
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
+from pymongo.server_api import ServerApi
 from bson.json_util import dumps
 import requests
 
@@ -22,6 +23,14 @@ mongo_pass = os.environ.get("MONGO")
 
 mongo_uri = "mongodb+srv://mohdansah10:" + mongo_pass + "@cluster0.dsdb23w.mongodb.net/"
 headers = {"Authorization": gpt_neo_key}
+
+client = MongoClient(mongo_uri, server_api=ServerApi('1'))
+# Send a ping to confirm a successful connection
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
 
 client = MongoClient(mongo_uri)
 ratings_collection = client["report"]["rating"]
