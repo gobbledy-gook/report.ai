@@ -23,9 +23,8 @@ cors = CORS(app)
 
 gpt_neo_key = os.environ.get("GPTNEO", None)
 headers = {"Authorization": gpt_neo_key}
-
-client = MongoClient("mongodb+srv://admin:admin@reportai.ks0reyi.mongodb.net/", 
-        server_api=ServerApi("1"))
+mongo_uri = "mongodb+srv://admin:admin@reportai.ks0reyi.mongodb.net/"
+client = MongoClient(mongo_uri, server_api=ServerApi("1"))
 try:
     client.admin.command("ping")
     print("Pinged your deployment. You successfully connected to MongoDB!")
