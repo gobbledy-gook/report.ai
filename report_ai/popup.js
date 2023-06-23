@@ -178,15 +178,31 @@ function saveEntry(rating, url) {
 chrome.storage.local.get(["key"], logger);
 
 function checkConnectionSignal() {
+  const element = document.getElementById("connectionSignal");
+  const text = element.querySelector(".text");
+  const icon = element.querySelector(".icon");
+
+  // Show loading state
+  icon.style.backgroundColor = "rgb(238, 210, 2)";
+  text.innerHTML = "waiting for connection...";
+
   // check if the server is running
   fetch("http://127.0.0.1:5000/healthcheck")
     .then((response) => {
       if (response.status === 200) {
-        document.getElementById("connectionSignal").style.backgroundColor = "rgb(45, 246, 31)";
+        // Update UI for successful connection
+        icon.style.backgroundColor = "rgb(45, 246, 31)";
+        text.innerHTML = "connected to server";
+      } else {
+        // Update UI for server error
+        icon.style.backgroundColor = "rgb(209, 0, 31)";
+        text.innerHTML = "server unavailable";
       }
     })
     .catch((error) => {
-      document.getElementById("connectionSignal").style.backgroundColor = "rgb(209, 0, 31)";
+      // Update UI for fetch error
+      icon.style.backgroundColor = "rgb(209, 0, 31)";
+      text.innerHTML = "server unavailable";
     });
 }
 

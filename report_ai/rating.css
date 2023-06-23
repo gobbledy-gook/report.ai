@@ -283,16 +283,23 @@ form .btn button:hover {
   overflow-y: hidden;
   color: #c6c6c6;
 }
-
 .connectionSignal {
+  padding-right: 24px;
+  padding-bottom: 8px;
+  background-color: #2a2a2a;
+  gap: 8px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.connectionSignal > .icon {
   border-radius: 100%;
-  background-color: rgb(45, 246, 31);
-  height: 20%;
-  margin-left: 68%;
-  margin-right: 10%;
-  margin-bottom: 5%;
-  /* margin-top: 10%; 
-  margin-bottom: 2%; */
+  background-color: rgb(255, 255, 255);
+  height: 10px;
+  width: 10px;
+}
+.connectionSignal > .text {
+  color: rgb(255, 255, 255);
 }
 
 #refreshBtn {
