@@ -21,10 +21,10 @@ app = Flask(__name__)
 cors = CORS(app)
 
 
-gpt_neo_key = os.environ.get("GPTNEO", None)
-headers = {"Authorization": gpt_neo_key}
-MongoUri = os.environ.get("mongo_uri","mongodb+srv://admin:admin@reportai.ks0reyi.mongodb.net/")
-client = MongoClient(MongoUri, server_api=ServerApi("1"))
+API_KEY = os.environ.get("GPTNEO", None)
+headers = {"Authorization": API_KEY}
+MONGO_URI = os.environ.get("mongo_uri","mongodb+srv://admin:admin@reportai.ks0reyi.mongodb.net/")
+client = MongoClient(MONGO_URI, server_api=ServerApi("1"))
 try:
     client.admin.command("ping")
     print("Pinged your deployment. You successfully connected to MongoDB!")
