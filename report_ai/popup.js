@@ -55,14 +55,12 @@ function logger(result) {
   };
 
   btn2.onclick = async () => {
-    // fetching the summary from server
-    // alert("Loading...");
     btn2.style.display = "none";
     var Parent = document.getElementById("SummaryParent");
     var gifParent = document.getElementById("loader");
     gifParent.style.display = "flex";
     let gif = document.createElement("img");
-    gif.src = "rotate-right.png";
+    gif.src = "assets/rotate-right.png";
     gif.style.animation = "spin 1.5s linear infinite";
     gif.style.width = "6%";
     gifParent.appendChild(gif);
@@ -165,7 +163,6 @@ function saveEntry(rating, url) {
     body: JSON.stringify(data),
   })
     .then((res) => {
-      // console.log("Request complete! response:", res);
       return res.json(); // return the Promise from res.json()
     })
     .then((json) => {
