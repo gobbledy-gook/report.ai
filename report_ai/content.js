@@ -1,15 +1,15 @@
+/* global chrome */
+
 let theText
-const to_select = ['p', 'h1', 'h2', 'h3', 'h5', 'h6', 'li'] // tags to extract texts from
+const toSelect = ['p', 'h1', 'h2', 'h3', 'h5', 'h6', 'li'] // tags to extract texts from
 
 // extracting the data
-to_select.forEach((t) => {
-  selected = document.querySelectorAll(t)
+toSelect.forEach((t) => {
+  const selected = document.querySelectorAll(t)
   selected.forEach((s) => {
     theText += s.innerText
   })
 })
-
-const word_count = theText.split(' ').length
 
 // creating a frequency map for the extracted words
 function wordFreq (string) {
@@ -25,18 +25,17 @@ function wordFreq (string) {
   return freqMap
 }
 
-// sorting the frequency to get most frequent words
+// sorting the frequency to get the most frequent words
 const freqMap = wordFreq(theText)
-const data = { text_data: theText }
-const sorted_Map = []
+const sortedMap = []
 for (const word in freqMap) {
-  sorted_Map.push([word, freqMap[word]])
+  sortedMap.push([word, freqMap[word]])
 }
-sorted_Map.sort(function (a, b) {
+sortedMap.sort(function (a, b) {
   return b[1] - a[1]
 })
 
-common_words = [
+const commonWords = [
   'i', '-', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you',
   "you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his',
   'himself', 'she', "she's", 'her', 'hers', 'herself', 'it', "it's", 'its', 'itself', 'they',
@@ -56,28 +55,28 @@ common_words = [
   "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't", 'always', 'already', 'would', 'without'
 ]
 
-const most_common = []
+const mostCommon = []
 
 // removing the common words from the sorted freq list
-sorted_Map.forEach((t) => {
-  if (!common_words.includes(t[0].toLowerCase()) && t[0].length > 4) {
-    most_common.push(t[0])
+sortedMap.forEach((t) => {
+  if (!commonWords.includes(t[0].toLowerCase()) && t[0].length > 4) {
+    mostCommon.push(t[0])
   }
 })
 
-// storing top 10 frequent word in freq_word
-const freq_word = []
-for (let i = 0; i < Math.min(most_common.length, 10); i++) {
-  freq_word.push(most_common[i])
+// storing the top 10 frequent words in freqWord
+const freqWord = []
+for (let i = 0; i < Math.min(mostCommon.length, 10); i++) {
+  freqWord.push(mostCommon[i])
 }
 
-console.log(freq_word)
+console.log(freqWord)
 
 // fetching the summary of the content through the API
-page_meta = {
-  freq_word,
+const pageMeta = {
+  freqWord,
   text: theText
 }
 
 // saving the data in local storage
-chrome.storage.local.set({ key: page_meta })
+chrome.storage.local.set({ key: pageMeta })

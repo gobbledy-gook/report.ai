@@ -1,8 +1,12 @@
+/* global chrome, fetch */
+
+let rating
+
 function logger (result) {
-  // return the rating of the site from database
+  // return the rating of the site from the database
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     const currentUrl = tabs[0].url
-    console.log('Current URL : ' + currentUrl)
+    console.log('Current URL: ' + currentUrl)
     getRating(currentUrl)
   })
 
@@ -21,7 +25,7 @@ function logger (result) {
         rating = 5 - i
         chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
           const currentUrl = tabs[0].url
-          console.log('Current URL : ' + currentUrl) // removed unnecessary "str" call
+          console.log('Current URL: ' + currentUrl)
           saveEntry(rating, currentUrl)
         })
       }
@@ -29,18 +33,16 @@ function logger (result) {
     btn0.style.backgroundColor = 'white'
     btn0.style.color = '#111'
 
-    console.log('Review :', review)
+    console.log('Review:', review)
   }
 
   btn1.onclick = () => {
     // display the fetched word cloud
     for (let i = 0; i < 10; i++) {
-      // console.log(result.key[i]);
       const s = document.createElement('span')
-      // alert(result.key.freq_word);
       s.innerHTML = result.key.freq_word[i]
       s.style.backgroundColor = 'rgba(255, 255, 255, 0.212)'
-      s.style.border = '1px solid rgba(255, 255, 255,0.4)'
+      s.style.border = '1px solid rgba(255, 255, 255, 0.4)'
       s.style.borderRadius = '3px'
       s.style.padding = '3px'
       s.style.margin = '4px'
@@ -108,7 +110,7 @@ function logger (result) {
       const json = await response.json()
       const answer = json.answer.answer
 
-      console.log('Answer: ', answer)
+      console.log('Answer:', answer)
       // Update the UI with the received answer
       const answerDiv = document.getElementById('Answer')
       answerDiv.style.display = 'block'
@@ -127,7 +129,7 @@ function logger (result) {
 }
 
 function getRating (url) {
-  // get rating through API
+  // get rating through the API
   const data = { url }
   fetch('http://127.0.0.1:5000/get_rating', {
     method: 'POST',
@@ -145,7 +147,9 @@ function getRating (url) {
       console.log(rating.toFixed(2))
       document.getElementById('overallRating').innerHTML = rating.toFixed(2)
     })
-    .catch((error) => { })
+    .catch((error) => {
+      console.log('Error while fetching the rating:', error)
+    })
 }
 
 function saveEntry (rating, url) {
@@ -167,7 +171,9 @@ function saveEntry (rating, url) {
     .then((json) => {
       console.log('Response JSON:', json)
     })
-    .catch((error) => { })
+    .catch((error) => {
+      console.log('Error while saving the entry:', error)
+    })
 }
 
 // fetching the local data and calling the logger
@@ -197,10 +203,11 @@ function checkConnectionSignal () {
     })
     .catch((error) => {
       // Update UI for fetch error
+      console.log("couldn't connect to server", error)
       icon.style.backgroundColor = 'rgb(209, 0, 31)'
       text.innerHTML = 'server unavailable'
     })
 }
 
 checkConnectionSignal()
-setInterval(checkConnectionSignal, 30000)
+setInterval(checkConnectionSignal, 5000)
