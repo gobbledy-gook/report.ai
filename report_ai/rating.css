@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 html,
 body {
@@ -93,19 +93,19 @@ input#rate-5:checked ~ label {
   text-shadow: 0 0 20px #952;
 }
 #rate-1:checked ~ form header:before {
-  content: 'Waste';
+  content: "Waste";
 }
 #rate-2:checked ~ form header:before {
-  content: 'Dislike ';
+  content: "Dislike ";
 }
 #rate-3:checked ~ form header:before {
-  content: 'Good';
+  content: "Good";
 }
 #rate-4:checked ~ form header:before {
-  content: 'Great';
+  content: "Great";
 }
 #rate-5:checked ~ form header:before {
-  content: 'Awesome';
+  content: "Awesome";
 }
 .container form {
   display: none;

@@ -29,11 +29,3 @@ jobs:
             .eslintrc.js
             .prettierrc.js
             .eslintignore
-
-      - name: Comment on pull request
-        uses: github-actions-comment/pull-request@v1
-        with:
-          message: |
-            :heavy_check_mark: Code style check passed!
-
-          check_name: Code Style Check
