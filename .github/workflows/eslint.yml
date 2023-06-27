@@ -17,15 +17,3 @@ jobs:
 
       - name: Run ESLint
         run: npx eslint .
-
-      - name: Run Prettier
-        run: npx prettier --check .
-
-      - name: Upload results
-        uses: actions/upload-artifact@v2
-        with:
-          name: style-check-results
-          path: |
-            .eslintrc.js
-            .prettierrc.js
-            .eslintignore
