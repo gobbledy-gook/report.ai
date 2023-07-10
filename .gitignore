@@ -34,3 +34,6 @@ test.db
 # secret keys
 report_ai.pem
 dev.sh
+
+# node modules
+/node_modules

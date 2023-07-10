@@ -31,12 +31,17 @@
 </head>
 
 <body>
-  <div style = "display:flex; width:100%; background-color: #2a2a2a;">
-    <div style = "width:75%"><h1>Report.AI</h1></div>
-    <div style = "display:flex; flex-direction:column; margin-left:7%">
-      <div style="height:70%;"><button title="Reload Current-tab" id = "refreshBtn">Reload</button></div>
-      <div class = "connectionSignal"> </div>
+  <div style="width: 100%;">
+    <div style = "display:flex;align-items: center; width:100%; background-color: #2a2a2a;">
+      <div style = "width:75%"><h1>Report.AI</h1></div>
+      <div style = "display:flex; flex-direction:column; margin-left:7%">
+        <div ><button title="Reload Current-tab" id = "refreshBtn">Reload</button></div>
+      </div>
     </div>
+    <div class = "connectionSignal" id="connectionSignal">
+      <div class="text"></div>
+      <div class="icon"></div>
+      </div>
   </div>
   <div class="topbar">
     <div style="width: 59%; text-align:right; padding-right:2%">Overall Page Rating</div>

@@ -283,38 +283,45 @@ form .btn button:hover {
   overflow-y: hidden;
   color: #c6c6c6;
 }
-
-.connectionSignal{
-  border-radius: 100%; 
-  background-color: rgb(45, 246, 31); 
-  height: 20%;
-  margin-left:68%;
-  margin-right:10%;
-  margin-bottom:5%;
-  /* margin-top: 10%; 
-  margin-bottom: 2%; */
+.connectionSignal {
+  padding-right: 24px;
+  padding-bottom: 8px;
+  background-color: #2a2a2a;
+  gap: 8px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.connectionSignal > .icon {
+  border-radius: 100%;
+  background-color: rgb(255, 255, 255);
+  height: 10px;
+  width: 10px;
+}
+.connectionSignal > .text {
+  color: rgb(255, 255, 255);
 }
 
-#refreshBtn{
-  padding-right:10%;
-  padding-left:10%;
+#refreshBtn {
+  padding-right: 10%;
+  padding-left: 10%;
   /* margin-left:20%; */
-  margin-right:10%;
-  margin-top:10%;
+  margin-right: 10%;
+  margin-top: 10%;
   border-radius: 10%;
-  color:#dbdbdb;
+  color: #dbdbdb;
   border: 1px solid #b3b3b3d7;
   background-color: #818080;
 }
 
-#refreshBtn:hover{
-  padding-right:10%;
-  padding-left:10%;
+#refreshBtn:hover {
+  padding-right: 10%;
+  padding-left: 10%;
   /* margin-left:30%; */
-  margin-right:10%;
-  margin-top:10%;
+  margin-right: 10%;
+  margin-top: 10%;
   border-radius: 10%;
-  color:#232323;
+  color: #232323;
   border: 1px solid #00000000;
   background-color: #dadada;
 }

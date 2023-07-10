@@ -1,13 +1,18 @@
 """
 Backend server for the report.Ai extension
+
+Make sure that you've added your cluster access in the environment
+mongodb+srv://<username>:<password>@cluster0.dsdb23w.mongodb.net/
 """
 
 # pylint: disable=E0401
+# pylint: disable=W0718
 import os
 import json
 from flask_cors import CORS
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
+from pymongo.server_api import ServerApi
 from bson.json_util import dumps
 import requests
 
@@ -16,13 +21,17 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 
-gpt_neo_key = os.environ.get("GPTNEO")
-mongo_pass = os.environ.get("MONGO")
+API_KEY = os.environ.get("GPTNEO", None)
+headers = {"Authorization": API_KEY}
+MONGO_URI = os.environ.get("mongo_uri","mongodb+srv://admin:admin@reportai.ks0reyi.mongodb.net/")
+client = MongoClient(MONGO_URI, server_api=ServerApi("1"))
+try:
+    client.admin.command("ping")
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
 
-mongo_uri = "mongodb+srv://mohdansah10:" + mongo_pass + "@cluster0.dsdb23w.mongodb.net/"
-headers = {"Authorization": gpt_neo_key}
 
-client = MongoClient(mongo_uri)
 ratings_collection = client["report"]["rating"]
 
 
@@ -147,6 +156,7 @@ def top_ratings():
     response = {"top": tops_list}
     return jsonify(response)
 
+
 @app.route("/")
 def home():
     """Home page"""
@@ -156,6 +166,13 @@ def home():
 def health_check():
     """Health check route"""
     return "OK", 200
+
+
+@app.route("/healthcheck")
+def health_check():
+    """Health check route"""
+    return "OK", 200
+
 
 if __name__ == "__main__":
     app.run(debug=True)
