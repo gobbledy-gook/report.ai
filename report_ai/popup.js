@@ -3,7 +3,7 @@
 let rating
 
 function logger (result) {
-  console.log("Recieved ersult :",result)
+  console.log('Recieved ersult :', result)
   // return the rating of the site from the database
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     const currentUrl = tabs[0].url
@@ -43,25 +43,25 @@ function logger (result) {
   btn1.onclick = () => {
     if (result && result.key && result.key.freqWord) {
       for (let i = 0; i < 10; i++) {
-          const s = document.createElement('span')
-          s.innerHTML = result.key.freqWord[i]
-          s.style.backgroundColor = 'rgba(255, 255, 255, 0.212)'
-          s.style.border = '1px solid rgba(255, 255, 255, 0.4)'
-          s.style.borderRadius = '3px'
-          s.style.padding = '3px'
-          s.style.margin = '4px'
-          s.style.display = 'inline'
-          s.style.float = 'left'
-          const parent = document.getElementsByClassName('worldcloudpara')
-          parent[0].appendChild(s)
-          if (i === 9) {
-            btn1.style.display = 'none'
-          }
+        const s = document.createElement('span')
+        s.innerHTML = result.key.freqWord[i]
+        s.style.backgroundColor = 'rgba(255, 255, 255, 0.212)'
+        s.style.border = '1px solid rgba(255, 255, 255, 0.4)'
+        s.style.borderRadius = '3px'
+        s.style.padding = '3px'
+        s.style.margin = '4px'
+        s.style.display = 'inline'
+        s.style.float = 'left'
+        const parent = document.getElementsByClassName('worldcloudpara')
+        parent[0].appendChild(s)
+        if (i === 9) {
+          btn1.style.display = 'none'
+        }
       }
     } else {
-      console.error('Error while fetching from local storage');
+      console.error('Error while fetching from local storage')
     }
-  };
+  }
 
   btn2.onclick = async () => {
     btn2.style.display = 'none'
