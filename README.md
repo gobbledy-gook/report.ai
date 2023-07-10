@@ -13,6 +13,8 @@
 2. Open your web browser and go to `chrome://extensions/`.
 3. Click on `Load unpacked` and select the extracted folder from Step 1.
 
+Having troubles? Read the [installation guide](./INSTALLATION.md)
+
 ## **Dev Installation**
 
 1. Clone the repository on your local machine using -
