@@ -70,7 +70,7 @@ def ask_qna(text):
     def query(payload):
         data = json.dumps(payload)
         response = requests.request(
-            "POST", api_url_qna, headers=headers, data=data, timeout=10
+            "POST", api_url_qna, headers=headersRoberta, data=data, timeout=10
         )
         return json.loads(response.content.decode("utf-8"))
 
