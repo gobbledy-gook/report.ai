@@ -65,7 +65,7 @@ function logger (result) {
   btn2.onclick = async () => {
     btn2.style.display = 'none'
     const Parent = document.getElementById('SummaryParent')
-    const gifParent = document.getElementById('loader')
+    const gifParent = document.getElementById('loaderSummary')
     gifParent.style.display = 'flex'
     const gif = document.createElement('img')
     gif.src = 'assets/rotate-right.png'
@@ -101,6 +101,15 @@ function logger (result) {
         question: document.getElementById('ask').value,
         context: result.key.text
       }
+      btn3.disabled = true
+      const Parent = document.getElementById('qnaParent')
+      const gifParent = document.getElementById('loaderQNA')
+      gifParent.style.display = 'flex'
+      const gif = document.createElement('img')
+      gif.src = 'assets/rotate-right.png'
+      gif.style.animation = 'spin 1.5s linear infinite'
+      gif.style.width = '6%'
+      gifParent.appendChild(gif)
       const response = await fetch('http://127.0.0.1:5000/ask-question', {
         method: 'POST',
         headers: {
@@ -120,6 +129,8 @@ function logger (result) {
       // Update the UI with the received answer
       const answerDiv = document.getElementById('Answer')
       answerDiv.style.display = 'block'
+      Parent.removeChild(gifParent)
+      btn3.disabled = false
       answerDiv.innerHTML = answer
     } catch (error) {
       console.error('Error fetching answer:', error)

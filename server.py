@@ -21,8 +21,10 @@ app = Flask(__name__)
 cors = CORS(app)
 
 
-API_KEY = os.environ.get("GPTNEO", None)
-headers = {"Authorization": API_KEY}
+BART = os.environ.get("BART", None)
+ROBERTA = os.environ.get("BART", None)
+headersBart = {"Authorization": BART}
+headersRoberta = {"Authorization": ROBERTA}
 MONGO_URI = os.environ.get("mongo_uri","mongodb+srv://admin:admin@reportai.ks0reyi.mongodb.net/")
 client = MongoClient(MONGO_URI, server_api=ServerApi("1"))
 try:
@@ -44,14 +46,14 @@ def summarizer(text):
     def query(payload):
         data = json.dumps(payload)
         response = requests.request(
-            "POST", api_url_summarizer, headers=headers, data=data, timeout=10
+            "POST", api_url_summarizer, headers=headersBart, data=data, timeout=10
         )
         return json.loads(response.content.decode("utf-8"))
 
     output = query(
         {
             "inputs": text,
-            "parameters": {"do_sample": False},
+            "parameters": {"min_length": 100},
         }
     )
     print(output)
@@ -68,7 +70,7 @@ def ask_qna(text):
     def query(payload):
         data = json.dumps(payload)
         response = requests.request(
-            "POST", api_url_qna, headers=headers, data=data, timeout=10
+            "POST", api_url_qna, headers=headersRoberta, data=data, timeout=10
         )
         return json.loads(response.content.decode("utf-8"))
 

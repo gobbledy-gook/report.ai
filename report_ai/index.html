@@ -6,7 +6,7 @@
   <meta>
   <link rel="stylesheet" href="rating.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <link rel="stylesheet" href="ai.css">
+  <!-- <link rel="stylesheet" href="ai.css"> -->
   <style>
     h1 {
       padding-top: 3%;
@@ -75,29 +75,43 @@
       </form>
     </div>
     <div class="wordcloud">
-      <div style="font-size:18px;">Word Cloud:<span>
-          <button id="generate_words" class="generate">Generate</button></span></div>
+      <div class = "sectionContainer">
+        <div class = "subHeading">Word Cloud:</div>
+        <div class = "btn">
+          <button id="generate_words" class="generate">Generate</button>
+        </div>
+      </div>
       <div class="worldcloudpara" style="padding:5px; display:inline; float:left">
 
       </div>
     </div>
-    <div class="wordcloud" id="SummaryParent">
-      <div style="font-size:18px;">Summary:<span><button id="summary" class="generate">Generate</button></span></div>
-      <div style = "justify-content: center; margin-top: 2%;" id = "loader"></div>
-      <div class="Summary" id="summarizerDiv">
-
+    <div class="wordcloud">
+      <div class="sectionContainer" id="SummaryParent">
+        <div class="subHeading">Summary:</div>
+        <div class = "btn">
+          <button id="summary" class="generate">Generate</button>
+        </div>
+        <div style = "justify-content: center; margin-top: 2%;" id = "loaderSummary"></div>
+        <div class="Summary" id="summarizerDiv">
+        
+        </div>
       </div>
     </div>
 
     <div class="wordcloud">
-      <div class="textarea2">
-        <textarea id="ask" cols="50" placeholder="Enter your query related to the content"></textarea>
-      </div>
-      <div class="btn">
-        <button id="askbtn" type="submit" class="generate">Ask a Question</button>
-      </div>
-      <div id="Answer" style="overflow-y: scrollable;">
+      <div class = "sectionContainer" id = "qnaParent">
+        <div class = "subHeading">QnA: </div>
+        <div class = "textarea">
+          <textarea class = "textarea2" id="ask" cols="50" placeholder="Enter your query related to the content"></textarea>
+        </div>
+        <div class="btn">
+          <button id="askbtn" type="submit" class="generate">Ask a Question</button>
+        </div>
 
+        <div style = "justify-content: center; margin-top: 2%;" id = "loaderQNA"></div>
+        <div id="Answer">
+          
+        </div>
       </div>
     </div>
 

@@ -19,6 +19,7 @@ body {
   padding-top: 20px;
   padding-left: 20px;
   padding-right: 20px;
+  padding-bottom:20px;
   width: 400px;
   display: flex;
   flex-direction: row;
@@ -30,11 +31,8 @@ body {
 .container {
   position: relative;
   width: 400px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 10px;
-  margin: 8px;
-
+  margin-left: 8px;
+  margin-right: 8px;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -42,6 +40,7 @@ body {
   flex-direction: column;
   border-top: 1px solid rgba(197, 197, 197, 0.308);
 }
+
 .container .post {
   display: none;
 }
@@ -71,7 +70,7 @@ body {
 .star-widget label {
   font-size: 15px;
   color: #444;
-  padding: 5px;
+  padding: 10px;
   float: right;
   transition: all 0.2s ease;
   text-align: right;
@@ -79,6 +78,7 @@ body {
 
 .star-widget {
   margin-bottom: 10px;
+  margin-top:10px;
 }
 
 input:not(:checked) ~ label:hover,
@@ -156,8 +156,8 @@ form .btn button {
   width: 100%;
   border: 1px solid #444;
   outline: none;
-  background: #222;
-  color: #999;
+  background: #e0e0e0;
+  color: #1e1e1e;
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
@@ -166,19 +166,24 @@ form .btn button {
 }
 form .btn button:hover {
   background: #1b1b1b;
+  color: white
 }
 
-.review {
+.btn{
+  display:flex;
+  justify-content: flex-end;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+#review {
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
 
 .wordcloud {
-  padding-top: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-bottom: 10px;
+  padding:20px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -206,14 +211,20 @@ form .btn button:hover {
 .Summary {
   background-color: #272727;
   width: 360;
-  height: 200;
-  padding: 5px;
+  height: 150;
+  margin-top:10px;
+  padding-top: 10px;
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-bottom: 10px;
   /* display:block; */
   display: none;
   float: left;
   text-align: left;
-  overflow-y: hidden;
+  overflow-x:hidden;
+  overflow-y:auto;
   color: #c6c6c6;
+  border: 0.5px solid rgb(95, 95, 95)
 }
 
 .loader {
@@ -240,9 +251,9 @@ form .btn button:hover {
 }
 
 .generate {
-  border: 1px solid rgba(255, 255, 255, 0.794);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   /* border: 1px solid rgba(255, 255, 255, 0.712); */
-  border-radius: 7px;
+  /* border-radius: 7px; */
   background-color: rgb(211, 118, 48);
   padding-left: 7px;
   padding-right: 7px;
@@ -250,8 +261,8 @@ form .btn button:hover {
 }
 
 .generate:hover {
-  border: 1px solid rgba(255, 255, 255, 0.794);
-  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  /* border-radius: 7px; */
   background-color: rgb(51, 51, 51);
   padding-left: 7px;
   padding-right: 7px;
@@ -259,7 +270,7 @@ form .btn button:hover {
   color: white;
 }
 
-#textarea2 {
+.textarea2 {
   height: 100%;
   width: 100%;
   outline: none;
@@ -324,4 +335,16 @@ form .btn button:hover {
   color: #232323;
   border: 1px solid #00000000;
   background-color: #dadada;
+}
+
+.sectionContainer{
+  display:flex;
+  flex-direction: column;
+}
+
+.subHeading{
+  justify-content: flex-start;
+  text-align: left;
+  font-size: 140%;
+  padding-bottom: 2%;
 }
