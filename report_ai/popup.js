@@ -40,7 +40,7 @@ function logger (result) {
   }
 
   btn1.onclick = () => {
-    if (result && result.key && result.key.freqWord) {
+    if (result?.key?.freqWord) {
       for (let i = 0; i < 10; i++) {
         const s = document.createElement('span')
         s.innerHTML = result.key.freqWord[i]
@@ -193,8 +193,15 @@ function saveEntry (rating, url) {
     })
 }
 
-// fetching the local data and calling the logger
-chrome.storage.local.get(['key'], logger)
+(async () => {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+  console.log(tab)
+  const response = await chrome.tabs.sendMessage(tab.id, {
+    to: 'content_script'
+  })
+  console.log(response)
+  logger({ key: response.pageMeta })
+})()
 
 function checkConnectionSignal () {
   const element = document.getElementById('connectionSignal')

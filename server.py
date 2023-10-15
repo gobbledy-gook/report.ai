@@ -25,7 +25,9 @@ BART = os.environ.get("BART", None)
 ROBERTA = os.environ.get("BART", None)
 headersBart = {"Authorization": BART}
 headersRoberta = {"Authorization": ROBERTA}
-MONGO_URI = os.environ.get("mongo_uri","mongodb+srv://admin:admin@reportai.ks0reyi.mongodb.net/")
+MONGO_URI = os.environ.get(
+    "mongo_uri", "mongodb+srv://admin:admin@reportai.ks0reyi.mongodb.net/"
+)
 client = MongoClient(MONGO_URI, server_api=ServerApi("1"))
 try:
     client.admin.command("ping")
