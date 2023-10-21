@@ -1,16 +1,13 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Report.AI",
   "description": "5-Star Rating, Summary, Report n much more..",
   "version": "3.1",
-  "browser_action": {
+  "action": {
     "default_popup": "index.html"
   },
-  "permissions": ["storage", "http://127.0.0.1:5000/*", "background", "tabs"],
-  "background": {
-    "scripts": ["./background.js", "./popup.js"],
-    "persistent": false
-  },
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["http://127.0.0.1:5000/*"],
   "icons": {
     "16": "assets/icon.png",
     "32": "assets/icon.png",

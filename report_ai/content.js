@@ -1,6 +1,6 @@
 /* global chrome */
 
-let theText
+let theText = ''
 const toSelect = ['p', 'h1', 'h2', 'h3', 'h5', 'h6', 'li'] // tags to extract texts from
 
 // extracting the data
@@ -247,3 +247,11 @@ const pageMeta = {
 
 // saving the data in local storage
 chrome.storage.local.set({ key: pageMeta })
+chrome.runtime.onMessage.addListener(
+  function (request, sender, sendResponse) {
+    console.log(sender.tab
+      ? 'from a content script:' + sender.tab.url
+      : 'from the extension')
+    request.to === 'content_script' && sendResponse({ pageMeta })
+  }
+)
