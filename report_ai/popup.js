@@ -161,8 +161,11 @@ function getRating (url) {
     .then((json) => {
       console.log('Response JSON:', json.rating)
       const rating = json.rating
+      const freq = "(" + json.freq + " reviews)"
+      
       console.log(rating.toFixed(2))
       document.getElementById('overallRating').innerHTML = rating.toFixed(2)
+      document.getElementById('numReviews').innerHTML = freq;
     })
     .catch((error) => {
       console.log('Error while fetching the rating:', error)
