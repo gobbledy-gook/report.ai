@@ -1,11 +1,14 @@
 /* global chrome, fetch */
-
 let rating
 
 function logger (result) {
   // return the rating of the site from the database
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     const currentUrl = tabs[0].url
+    let currUrl = localStorage.getItem("report_ai_id");
+    if(currUrl == currentUrl){
+      document.querySelector("#review-system").innerHTML = 'Already rated';
+    }
     console.log('Current URL: ' + currentUrl)
     getRating(currentUrl)
   })
@@ -173,8 +176,9 @@ function getRating (url) {
 }
 
 function saveEntry (rating, url) {
-  const data = { rating, url }
+  const data = { rating, url}
   console.log(data)
+  localStorage.setItem("report_ai_id",url);
   fetch('http://127.0.0.1:5000/save_entry', {
     method: 'POST',
     headers: {
@@ -198,13 +202,14 @@ function saveEntry (rating, url) {
 
 (async () => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
-  console.log(tab)
+  console.log(tab);
   const response = await chrome.tabs.sendMessage(tab.id, {
-    to: 'content_script'
+    to: 'content_script',
   })
   console.log(response)
-  logger({ key: response.pageMeta })
-})()
+  logger({ key: response.pageMeta})
+})();
+
 
 function checkConnectionSignal () {
   const element = document.getElementById('connectionSignal')
